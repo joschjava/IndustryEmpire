@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import mainpack.Balance;
 import mainpack.Functions;
 import objects.HistoryObject;
@@ -9,7 +11,7 @@ import objects.HistoryObject;
 public class Resource {
 
 	private ResourceSpec spec;
-	private double amount;
+	private DoubleProperty amount = new SimpleDoubleProperty();
 	
 	private HistoryManager history = new HistoryManager();
 	
@@ -26,12 +28,16 @@ public class Resource {
 	}
 
 	public double getAmount() {
+		return amount.get();
+	}
+	
+	public DoubleProperty AmountProperty() {
 		return amount;
 	}
 	
 	public void setAmount(double amount) {
 		history.addNumber(amount);
-		this.amount = amount;
+		this.amount.set(amount);
 	}
 	
 	public ResourceSpec getSpec() {
@@ -48,7 +54,7 @@ public class Resource {
 	 * @param change
 	 */
 	public void chgResource(double change) {
-		setAmount(amount+change);
+		setAmount(amount.get()+change);
 	}
 	
 
