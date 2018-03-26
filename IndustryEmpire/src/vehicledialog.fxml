@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VehicleCreation">
+   <children>
+      <ListView fx:id="vehicles" prefHeight="200.0" prefWidth="200.0" />
+      <HBox prefHeight="7.0" prefWidth="200.0">
+         <children>
+            <ComboBox fx:id="cityDropDown" prefWidth="150.0" />
+            <Button fx:id="btAdd" mnemonicParsing="false" text="+" />
+            <Button fx:id="btDelete" mnemonicParsing="false" text="-" />
+         </children>
+      </HBox>
+      <ListView fx:id="itineraryView" prefHeight="200.0" prefWidth="200.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btBuy" mnemonicParsing="false" text="Buy" />
+            <Button fx:id="btCancel" mnemonicParsing="false" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

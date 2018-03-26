@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import gui.WorldPane?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindowController">
+   <children>
+      <HBox>
+         <children>
+            <Button fx:id="btBuyVehicle" mnemonicParsing="false" text="Buy Vehicle" />
+         </children>
+      </HBox>
+	<WorldPane fx:id="worldPane"/>
+   </children>
+</VBox>
