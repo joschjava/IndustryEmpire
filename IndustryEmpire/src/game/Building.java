@@ -32,7 +32,7 @@ public class Building implements TickListener{
 		} else {
 			System.err.println("Error creating building "+buildingId+"("+buildingSpec.getName()+"): City cannot be null");
 		}
-		city.addBuilding(this, getInputOutputResourceIds());
+		city.addBuilding(this);
 	}
 	
 	/** Initialises resources for in- and output */

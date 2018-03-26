@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VehicleCreation">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VehiclePaneController">
    <children>
       <ListView fx:id="vehicles" prefHeight="200.0" prefWidth="200.0" />
       <HBox prefHeight="7.0" prefWidth="200.0">

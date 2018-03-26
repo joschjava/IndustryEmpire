@@ -42,7 +42,6 @@ public class City extends Position{
 	 */
 	public City(int x, int y) {
 		this("City "+cityList.size(), x, y);
-		cityList.forEach(System.out::println);
 	}
 	
 	/**
@@ -94,7 +93,7 @@ public class City extends Position{
 		return new Point(position);
 	}
 	
-	public void addBuilding(Building building, ResourceSpec[] resSpecs) {
+	void addBuilding(Building building) {
 		buildings.add(building);
 	}
 	
@@ -160,6 +159,10 @@ public class City extends Position{
 	
 	public double getResourceAmount(ResourceSpec resSpec) {
 		return resources.getResAmountByResSpec(resSpec);
+	}
+	
+	public ArrayList<Resource> getAllResources() {
+		return resources.getAllResources();
 	}
 	
 	public double getX() {

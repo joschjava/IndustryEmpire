@@ -36,8 +36,7 @@ public class GuiCity {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-            	
-               System.out.println(city+" clicked");
+            	CityPane.show(city);
             }
         });
         pane.setOnMouseEntered(new EventHandler<MouseEvent>(){

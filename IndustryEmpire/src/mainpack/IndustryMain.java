@@ -3,6 +3,8 @@ package mainpack;
 import java.io.IOException;
 import java.net.URL;
 
+import game.Building;
+import game.Buildings;
 import game.City;
 import game.Game;
 import game.Itinerary;
@@ -10,6 +12,7 @@ import game.ItineraryItem;
 import game.Vehicle;
 import game.VehicleSpecs;
 import game.Vehicles;
+import gui.CityPane;
 import gui.WorldPane;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,25 +40,34 @@ public class IndustryMain extends Application {
 
 		
 		
-		
+		Game.getInstance();
 		City essen = new City("Essen");
 		City berlin = new City("Berlin");
 		City frankfurt = new City("Frankfurt");
 		City bonn = new City("Bonn");
 		City newtown = new City("Newtown");
-		Vehicle karl = new Vehicle(new VehicleSpecs(10,20), essen);
-        Itinerary itinerary = new Itinerary();
-        itinerary.add(new ItineraryItem(essen, null, null));
-        itinerary.add(new ItineraryItem(bonn, null, null));
-        itinerary.add(new ItineraryItem(newtown, null, null));
-        itinerary.add(new ItineraryItem(berlin, null, null));
-        itinerary.add(new ItineraryItem(frankfurt, null, null));
-        karl.setItinerary(itinerary);
+		new Buildings();
+		new Building(Buildings.SUPER_RES_FACTORY, essen);
+//		Vehicle karl = new Vehicle(new VehicleSpecs(10,20), essen);
+//        Itinerary itinerary = new Itinerary();
+//        itinerary.add(new ItineraryItem(essen, null, null));
+//        itinerary.add(new ItineraryItem(bonn, null, null));
+//        itinerary.add(new ItineraryItem(newtown, null, null));
+//        itinerary.add(new ItineraryItem(berlin, null, null));
+//        itinerary.add(new ItineraryItem(frankfurt, null, null));
+//        karl.setItinerary(itinerary);
 		launch(args);
 	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		Game.getInstance().start();
+		
+//		City essen = new City("Essen");
+//		new Building(Buildings.SUPER_RES_FACTORY, essen);
+//		CityPane.show(essen);
+		
+		
         FXMLLoader loader = new FXMLLoader();
         URL res = IndustryMain.class.getResource("/mainwindow.fxml");
         loader.setLocation(res);
@@ -73,7 +85,7 @@ public class IndustryMain extends Application {
 		primaryStage.setScene(scene);
 		Game.getInstance().start();
 		primaryStage.show();
-//		WorldPane wp = (WorldPane)rootLayout.getChildren().filtered((node)-> node instanceof WorldPane).get(0);
+
 		
 	}
 

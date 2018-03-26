@@ -15,6 +15,7 @@ public class Game {
     
     private Game() {
     	init();
+    	
     }
     
     public static Game getInstance() {

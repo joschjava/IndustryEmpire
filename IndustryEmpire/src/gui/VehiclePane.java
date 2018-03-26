@@ -25,7 +25,7 @@ public class VehiclePane {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		VehicleCreation controller = loader.getController();
+		VehiclePaneController controller = loader.getController();
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
 		stage.setScene(scene);

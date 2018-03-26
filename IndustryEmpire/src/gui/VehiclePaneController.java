@@ -21,7 +21,7 @@ import javafx.stage.WindowEvent;
 
 
 
-public class VehicleCreation {
+public class VehiclePaneController {
 
 	@FXML	
 	public ListView<VehicleSpecs> vehicles;

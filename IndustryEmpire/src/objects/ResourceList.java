@@ -65,7 +65,10 @@ public class ResourceList extends ArrayList<Resource> {
 		return chgResources.getCopy();
 	}
 	
-
+	public ArrayList<Resource> getAllResources(){
+		return this;
+	}
+	
 	
 	/**
 	 * Returns a resource by its specification

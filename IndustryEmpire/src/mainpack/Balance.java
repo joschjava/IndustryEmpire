@@ -8,7 +8,7 @@ package mainpack;
  */
 public class Balance {
 
-	/**
+	/*
 	 * GENERAL
 	 */
 	
@@ -18,7 +18,20 @@ public class Balance {
 	/** Tolerance within a given resource is valid. E.g. 0.00005 of a resource equals empty resource = 0.0 */
 	public static final double TOLERANCE = 0.001;
 	
-	/**
+	/* 
+	 * FILES
+	 */
+	
+	public static final String GRAPHICS_FOLDER = "graphics";
+	public static final String RES_FOLDER = "res";
+	
+	/*
+	 * DISPLAY
+	 */
+	/** Number of digits after comma being displayed in view */
+	public static final int DISPLAY_DIGITS = 2;
+	
+	/*
 	 * DRIVER LIST 
 	 */
 	

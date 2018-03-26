@@ -114,21 +114,21 @@ class Unittest {
 	void produceTest() {
 		Game game = Game.getInstance();
 		BuildingSpec BOOK_FACTORY = new BuildingSpec("Book Factory",10);
-		BOOK_FACTORY.addResource(Resources.WOOD, 1, BuildingSpec.INPUT);
+		BOOK_FACTORY.addResource(Resources.WOOD_DEB, 1, BuildingSpec.INPUT);
 		BOOK_FACTORY.addResource(Resources.BOOKS, 10, BuildingSpec.OUTPUT);
 		
         City berlin = new City("Berlin",400,300);
         new Building(BOOK_FACTORY, berlin);
-        berlin.setResourceAmount(Resources.WOOD, 100);
+        berlin.setResourceAmount(Resources.WOOD_DEB, 100);
 
         
         for(int i=0;i<100;i++) {
-        	System.out.println(berlin.getResourceAmount(Resources.WOOD));
+        	System.out.println(berlin.getResourceAmount(Resources.WOOD_DEB));
         	game.tick();
         }
         
         double books = berlin.getResourceAmount(Resources.BOOKS);
-        double wood = berlin.getResourceAmount(Resources.WOOD);
+        double wood = berlin.getResourceAmount(Resources.WOOD_DEB);
         assertEquals("Books should be 100, but are "+books, 100, books,Balance.TOLERANCE);
         assertEquals("Wood should be 90, but are "+wood, 90, wood,Balance.TOLERANCE);
         for(int i=0;i<900;i++) {
@@ -136,9 +136,9 @@ class Unittest {
         }
         
         books = berlin.getResourceAmount(Resources.BOOKS);
-        wood = berlin.getResourceAmount(Resources.WOOD);
+        wood = berlin.getResourceAmount(Resources.WOOD_DEB);
         System.out.println(berlin.getResourceAmount(Resources.BOOKS));
-        System.out.println(berlin.getResourceAmount(Resources.WOOD));
+        System.out.println(berlin.getResourceAmount(Resources.WOOD_DEB));
         assertEquals("Books should be 1000, but are "+books, 1000, books,0.01);
         assertEquals("Wood should be 0, but are "+wood, 0, wood,0.01);
 	}
@@ -177,22 +177,22 @@ class Unittest {
 		Game game = Game.getInstance();
 		BuildingSpec BOOK_FACTORY = new BuildingSpec("Book Factory",10);
 		BuildingSpec WOOD_FACTORY = new BuildingSpec("Wood Factory",10);
-		BOOK_FACTORY.addResource(Resources.WOOD, 1, BuildingSpec.INPUT);
+		BOOK_FACTORY.addResource(Resources.WOOD_DEB, 1, BuildingSpec.INPUT);
 		BOOK_FACTORY.addResource(Resources.BOOKS, 10, BuildingSpec.OUTPUT);
-		WOOD_FACTORY.addResource(Resources.WOOD, 10, BuildingSpec.OUTPUT);
+		WOOD_FACTORY.addResource(Resources.WOOD_DEB, 10, BuildingSpec.OUTPUT);
 		
 		City berlin = new City("Berlin",0,0);
         City essen = new City("Essen",0,400);
 //        new Building(WOOD_FACTORY, essen);
 
-        essen.setResourceAmount(Resources.WOOD, 100);
+        essen.setResourceAmount(Resources.WOOD_DEB, 100);
               
 //        new Building(BOOK_FACTORY, berlin);
         
 		Vehicle karl = new Vehicle(new VehicleSpecs(Integer.MAX_VALUE,20), essen);
 
         Itinerary itinerary = new Itinerary();
-        Resource woodLoad = new Resource(Resources.WOOD, 100);
+        Resource woodLoad = new Resource(Resources.WOOD_DEB, 100);
         Resource[] transfer = {woodLoad};
         itinerary.add(new ItineraryItem(essen, transfer, null));
         itinerary.add(new ItineraryItem(berlin, null, transfer));
@@ -283,9 +283,9 @@ class Unittest {
 		Game game = Game.getInstance();
 		BuildingSpec BOOK_FACTORY = new BuildingSpec("Book Factory",10);
 		BuildingSpec WOOD_FACTORY = new BuildingSpec("Wood Factory",10);
-		BOOK_FACTORY.addResource(Resources.WOOD, 1, BuildingSpec.INPUT);
+		BOOK_FACTORY.addResource(Resources.WOOD_DEB, 1, BuildingSpec.INPUT);
 		BOOK_FACTORY.addResource(Resources.BOOKS, 10, BuildingSpec.OUTPUT);
-		WOOD_FACTORY.addResource(Resources.WOOD, 10, BuildingSpec.OUTPUT);
+		WOOD_FACTORY.addResource(Resources.WOOD_DEB, 10, BuildingSpec.OUTPUT);
 		
 		City berlin = new City("Berlin",0,0);
         City essen = new City("Essen",0,400);
@@ -295,7 +295,7 @@ class Unittest {
 		Vehicle karl = new Vehicle(new VehicleSpecs(Integer.MAX_VALUE,20), essen);
 
         Itinerary itinerary = new Itinerary();
-        Resource woodLoad = new Resource(Resources.WOOD, 10);
+        Resource woodLoad = new Resource(Resources.WOOD_DEB, 10);
         Resource[] transfer = {woodLoad};
         itinerary.add(new ItineraryItem(essen, transfer, null, true));
         itinerary.add(new ItineraryItem(berlin, null, transfer));
