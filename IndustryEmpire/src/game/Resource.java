@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import mainpack.Balance;
+import mainpack.Const;
 import mainpack.Functions;
 import objects.HistoryObject;
 
@@ -79,7 +79,7 @@ public class Resource {
 	 * @return true if zero, false if not
 	 */
 	public boolean isEqualAmount(Resource res) {
-		double tolerance = Balance.TOLERANCE;
+		double tolerance = Const.TOLERANCE;
 		if(Math.abs(res.getAmount()-getAmount()) <= tolerance ) {
 			return true;
 		} else {

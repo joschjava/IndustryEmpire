@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import mainpack.Const;
 
 public class Game {
     private List<TickListener> tickListener = new ArrayList<TickListener>();
@@ -58,7 +59,7 @@ public class Game {
      * Starts the game ticker
      */
     public void start() {
-    	start(100);
+    	start(Const.STD_TICK_INTERVAL);
     }
     
     /**

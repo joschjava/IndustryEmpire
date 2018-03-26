@@ -81,7 +81,7 @@ public class IndustryMainIld extends Application{
 		
 	    addDragOption(root);
 	        
-		primaryStage.setScene(new Scene(root, Balance.MAPSIZE_X, Balance.MAPSIZE_Y));
+		primaryStage.setScene(new Scene(root, Const.MAPSIZE_X, Const.MAPSIZE_Y));
 		primaryStage.show();
 	}
 

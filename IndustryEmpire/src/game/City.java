@@ -7,7 +7,7 @@ import org.apache.commons.lang3.RandomUtils;
 
 import javafx.beans.Observable;
 import javafx.util.Callback;
-import mainpack.Balance;
+import mainpack.Const;
 import objects.HistoryObject;
 import objects.ResourceList;
 
@@ -50,8 +50,8 @@ public class City extends Position{
 	 */
 	public City(String name){
 		super();
-		int x = RandomUtils.nextInt(0, Balance.MAPSIZE_X);
-		int y = RandomUtils.nextInt(0, Balance.MAPSIZE_Y);
+		int x = RandomUtils.nextInt(0, Const.MAPSIZE_X);
+		int y = RandomUtils.nextInt(0, Const.MAPSIZE_Y);
 		init(name, x, y);
 	}
 
@@ -62,8 +62,8 @@ public class City extends Position{
 	 */
 	public City(String name, int x, int y){
 		super();
-		if(0<=x && x<=Balance.MAPSIZE_X && 
-		   0<=y && y<=Balance.MAPSIZE_Y) {
+		if(0<=x && x<=Const.MAPSIZE_X && 
+		   0<=y && y<=Const.MAPSIZE_Y) {
 			init(name, x, y);
 		} else {
 			System.err.println("City "+name+" is outside of map");

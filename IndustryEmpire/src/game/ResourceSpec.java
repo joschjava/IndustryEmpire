@@ -3,7 +3,7 @@ package game;
 import java.io.File;
 
 import javafx.scene.image.Image;
-import mainpack.Balance;
+import mainpack.Const;
 
 public class ResourceSpec {
 
@@ -22,17 +22,17 @@ public class ResourceSpec {
 		this.name = name;
 		this.id = idCtr++;
 		File imageFile = new File(
-						Balance.GRAPHICS_FOLDER + "/" +
-					 	Balance.RES_FOLDER + "/" + 
+						Const.GRAPHICS_FOLDER + "/" +
+					 	Const.RES_FOLDER + "/" + 
 					 	imageFileName
 					);
 		if(!imageFile.isFile()) {
 			System.out.println("Image not found or not defined for Resource: "+name);
 			if(unknownFile == null) {
 				imageFile = new File(
-						Balance.GRAPHICS_FOLDER + "/" +
-					 	Balance.RES_FOLDER + "/" + 
-					 	Balance.IM_UNKNOWN
+						Const.GRAPHICS_FOLDER + "/" +
+					 	Const.RES_FOLDER + "/" + 
+					 	Const.IM_UNKNOWN
 					);
 				unknownFile = imageFile;
 			} else {

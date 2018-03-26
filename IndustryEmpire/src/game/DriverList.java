@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import mainpack.Balance;
+import mainpack.Const;
 
 public class DriverList extends Application implements TickListener{
 
@@ -27,10 +27,10 @@ public class DriverList extends Application implements TickListener{
 	static TextField tf;
 	
 	/** Minimal drivers on the list	 */
-	private static final int MIN_DRIVERS = Balance.MIN_DRIVERS;
+	private static final int MIN_DRIVERS = Const.MIN_DRIVERS;
 	
-	/** Maximal drivers on the list, be aware that this might also be limited by {@link Balance#MIN_DRIVER_TIME} and {@link Balance#MAX_DRIVER_TIME}	 */
-	private static final int MAX_DRIVERS = Balance.MAX_DRIVERS;
+	/** Maximal drivers on the list, be aware that this might also be limited by {@link Const#MIN_DRIVER_TIME} and {@link Const#MAX_DRIVER_TIME}	 */
+	private static final int MAX_DRIVERS = Const.MAX_DRIVERS;
 		
 	private static HistoryManager history = new HistoryManager();
 	

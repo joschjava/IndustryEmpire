@@ -6,7 +6,7 @@ import javafx.beans.Observable;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.util.Callback;
-import mainpack.Balance;
+import mainpack.Const;
 import mainpack.Functions;
 
 public class Driver {
@@ -17,16 +17,16 @@ public class Driver {
 	SimpleIntegerProperty time = new SimpleIntegerProperty(-1);
 	
 	/** Minimum time a driver is on the market */
-	private final int MIN_DRIVER_TIME = Balance.MIN_DRIVER_TIME;
+	private final int MIN_DRIVER_TIME = Const.MIN_DRIVER_TIME;
 	
 	/** Maximum time a driver is on the market */
-	private final int MAX_DRIVER_TIME = Balance.MAX_DRIVER_TIME;
+	private final int MAX_DRIVER_TIME = Const.MAX_DRIVER_TIME;
 	
 	/** Minimum basic salary of a driver (might be higher or lower due to driver qualifications) */
-	private final int MIN_DRIVER_SALARY = Balance.MIN_DRIVER_SALARY;
+	private final int MIN_DRIVER_SALARY = Const.MIN_DRIVER_SALARY;
 	
 	/** Maximum basic salary of a driver (might be higher or lower due to driver qualifications) */
-	private final int MAX_DRIVER_SALARY = Balance.MAX_DRIVER_SALARY;
+	private final int MAX_DRIVER_SALARY = Const.MAX_DRIVER_SALARY;
 	
 	
 	

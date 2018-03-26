@@ -26,7 +26,7 @@ import game.Resources;
 import game.Vehicle;
 import game.VehicleSpecs;
 import game.Vehicles;
-import mainpack.Balance;
+import mainpack.Const;
 import objects.ResourceList;
 @RunWith(JUnitPlatform.class)
 class Unittest {
@@ -129,8 +129,8 @@ class Unittest {
         
         double books = berlin.getResourceAmount(Resources.BOOKS);
         double wood = berlin.getResourceAmount(Resources.WOOD_DEB);
-        assertEquals("Books should be 100, but are "+books, 100, books,Balance.TOLERANCE);
-        assertEquals("Wood should be 90, but are "+wood, 90, wood,Balance.TOLERANCE);
+        assertEquals("Books should be 100, but are "+books, 100, books,Const.TOLERANCE);
+        assertEquals("Wood should be 90, but are "+wood, 90, wood,Const.TOLERANCE);
         for(int i=0;i<900;i++) {
         	game.tick();
         }
@@ -316,7 +316,7 @@ class Unittest {
 		}
         
         double books = berlin.getResourceAmount(Resources.BOOKS);
-        assertEquals("Invalid amount of books", 100.0, books,Balance.TOLERANCE);
+        assertEquals("Invalid amount of books", 100.0, books,Const.TOLERANCE);
         
 	}
 	
@@ -328,7 +328,7 @@ class Unittest {
 		City berlin = new City("Berlin");
 		berlin.setResourceAmount(Resources.TEST1, 5.0);
 		berlin.chgResource(Resources.TEST1, 10.0);
-		assertEquals("Wrong amount of resources",15.0, berlin.getResourceAmount(Resources.TEST1), Balance.TOLERANCE);
+		assertEquals("Wrong amount of resources",15.0, berlin.getResourceAmount(Resources.TEST1), Const.TOLERANCE);
 	}
 	
 	@Test
@@ -339,7 +339,7 @@ class Unittest {
 		City berlin = new City("Berlin");
 		berlin.setResourceAmount(Resources.TEST1, 5.0);
 		berlin.chgResource(Resources.TEST1, -10.0);
-		assertEquals("Wrong amount of resources",0.0, berlin.getResourceAmount(Resources.TEST1), Balance.TOLERANCE);
+		assertEquals("Wrong amount of resources",0.0, berlin.getResourceAmount(Resources.TEST1), Const.TOLERANCE);
 	}
 	
 	@Test
@@ -351,13 +351,13 @@ class Unittest {
 		Resource test1 = new Resource(Resources.TEST1, 5.0);
 		list.chgResourceAmountBy(test1, ResourceList.PLUS);
 		double amount = list.getResAmountByResSpec(test1.getSpec());
-		assertEquals("Wrong resource amount", 5.0, amount, Balance.TOLERANCE);
+		assertEquals("Wrong resource amount", 5.0, amount, Const.TOLERANCE);
 		
 		ResourceList list2 = new ResourceList();
 		Resource test2 = new Resource(Resources.TEST1, 5.0);
 		list2.chgResourceAmountBy(test2, ResourceList.MINUS);
 		amount = list2.getResAmountByResSpec(test2.getSpec());
-		assertEquals("Wrong resource amount", 0.0, amount, Balance.TOLERANCE);
+		assertEquals("Wrong resource amount", 0.0, amount, Const.TOLERANCE);
 		
 		// Try getting more resources than available
 		ResourceList list3 = new ResourceList();
@@ -366,7 +366,7 @@ class Unittest {
 		list3.chgResourceAmountBy(test3, ResourceList.PLUS);
 		list3.chgResourceAmountBy(minus, ResourceList.MINUS);
 		amount = list3.getResAmountByResSpec(test3.getSpec());
-		assertEquals("Wrong resource amount", 0.0, amount, Balance.TOLERANCE);
+		assertEquals("Wrong resource amount", 0.0, amount, Const.TOLERANCE);
 		
 		ResourceList list4 = new ResourceList();
 		Resource test4 = new Resource(Resources.TEST1, 5.0);
@@ -374,7 +374,7 @@ class Unittest {
 		list4.chgResourceAmountBy(test4, ResourceList.PLUS);
 		list4.chgResourceAmountBy(plus, ResourceList.PLUS);
 		amount = list4.getResAmountByResSpec(test4.getSpec());
-		assertEquals("Wrong resource amount", 15.0, amount, Balance.TOLERANCE);
+		assertEquals("Wrong resource amount", 15.0, amount, Const.TOLERANCE);
 	}
 	
 	@Test

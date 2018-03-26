@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.converter.NumberStringConverter;
-import mainpack.Balance;
+import mainpack.Const;
 
 public class ResourceContainer extends VBox{
 
@@ -24,13 +24,13 @@ public class ResourceContainer extends VBox{
     	this.setAlignment(Pos.CENTER);
     	ImageView iv = new ImageView(image);
     	double amount = res.getAmount();
-    	txtAmount = new Text(String.format("%."+Balance.DISPLAY_DIGITS+"f",amount));
+    	txtAmount = new Text(String.format("%."+Const.DISPLAY_DIGITS+"f",amount));
     	StringProperty txtProperty = txtAmount.textProperty();
 
         NumberStringConverter converter = new NumberStringConverter() {
         	@Override
         	public String toString(Number value) {
-				return String.format("%."+Balance.DISPLAY_DIGITS+"f",value.doubleValue());
+				return String.format("%."+Const.DISPLAY_DIGITS+"f",value.doubleValue());
         	}
         };
         Bindings.bindBidirectional(txtProperty, res.AmountProperty(), converter);

@@ -59,7 +59,7 @@ public class Functions {
 	 * @return true if zero, false if not
 	 */
 	public static boolean isZero(double amount) {
-		double tolerance = Balance.TOLERANCE;
+		double tolerance = Const.TOLERANCE;
 		if(-tolerance <= amount && amount <= tolerance) {
 			return true;
 		} else {

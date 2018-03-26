@@ -6,7 +6,7 @@ package mainpack;
  * @author Jonas Scholten
  *
  */
-public class Balance {
+public class Const {
 
 	/*
 	 * GENERAL
@@ -14,6 +14,9 @@ public class Balance {
 	
 	public static final int MAPSIZE_X = 500;
 	public static final int MAPSIZE_Y = 500;
+	
+	/** Standard time between two ticks */
+	public static final int STD_TICK_INTERVAL = 100;
 	
 	/** Tolerance within a given resource is valid. E.g. 0.00005 of a resource equals empty resource = 0.0 */
 	public static final double TOLERANCE = 0.001;
