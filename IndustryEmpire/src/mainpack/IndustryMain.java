@@ -27,6 +27,17 @@ public class IndustryMain extends Application {
 	Pane route = new Pane();
 	
 	public static void main(String[] args) {
+		
+//		new City("neu");
+//		for(int y=0;y<200;y+=50) {
+//			for(int x=0;x<200;x+=50) {
+//				new City(x,y);
+//			}
+//		}
+
+		
+		
+		
 		City essen = new City("Essen");
 		City berlin = new City("Berlin");
 		City frankfurt = new City("Frankfurt");

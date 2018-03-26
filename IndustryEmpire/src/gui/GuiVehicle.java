@@ -13,7 +13,6 @@ import javafx.scene.text.Text;
 
 public class GuiVehicle {
 
-	private Circle circle;
 	private Text text;
 	private Pane pane;
 	private Vehicle vehicle;
@@ -25,15 +24,13 @@ public class GuiVehicle {
 	public GuiVehicle(Vehicle vehicle){
 		this.vehicle = vehicle;
 		pane = new Pane();
-		iv = new ImageView();
-		iv.setImage(image);
-//		circle = new Circle(5, Color.ORANGE);
-		iv.relocate(0,0);
 		File file = new File("graphics/truck.png");
 		File file_m = new File("graphics/truck_m.png");
 		image = new Image(file.toURI().toString(),20,20, true, true);
 		image_m = new Image(file_m.toURI().toString(),20,20, true, true);
+		iv = new ImageView();
 		iv.setImage(image);
+		iv.relocate(0,0);
 		text = new Text(vehicle.toString());
 		text.relocate(0, iv.getLayoutY()-20);
 		pane.getChildren().addAll(iv, text);
@@ -50,7 +47,6 @@ public class GuiVehicle {
 		} else {
 			setFlippedVehicle(false);
 		}
-		System.out.println("Deg: "+angleDeg);
 		iv.setRotate(angleDeg);
 	}
 	

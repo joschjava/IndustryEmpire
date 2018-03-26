@@ -37,6 +37,15 @@ public class City extends Position{
 	public static ArrayList<City> cityList = new ArrayList<City>();
 	
 	/**
+	 * Creates city with random name at position x y
+	 * @param name
+	 */
+	public City(int x, int y) {
+		this("City "+cityList.size(), x, y);
+		cityList.forEach(System.out::println);
+	}
+	
+	/**
 	 * Creates city with random coordinates
 	 * @param name
 	 */
@@ -45,7 +54,6 @@ public class City extends Position{
 		int x = RandomUtils.nextInt(0, Balance.MAPSIZE_X);
 		int y = RandomUtils.nextInt(0, Balance.MAPSIZE_Y);
 		init(name, x, y);
-		cityList.add(this);
 	}
 
 	
@@ -66,6 +74,7 @@ public class City extends Position{
 	private void init(String name, int x, int y) {
 		position = new Point(x,y);
 		this.name = name;
+		cityList.add(this);
 	}
 	
 	@Override
