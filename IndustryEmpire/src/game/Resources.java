@@ -18,5 +18,7 @@ public class Resources {
 	public static final ResourceSpec STONE =  new ResourceSpec("Stone", "stone.png");
 	public static final ResourceSpec WHEAT =  new ResourceSpec("Wheat", "wheat.png");
 	public static final ResourceSpec WOOD =  new ResourceSpec("Wood", "Wood.png");
+	
+	/** Used for Resources that have no picture or of the file That couldn't be found */
 	public static final ResourceSpec UNKNOWN =  new ResourceSpec("???", "unknown.png");
 }

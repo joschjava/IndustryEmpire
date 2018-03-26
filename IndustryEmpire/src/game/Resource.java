@@ -69,7 +69,6 @@ public class Resource {
 	 * @return true if zero, false if not
 	 */
 	public static boolean isZero(Resource res) {
-		double tolerance = Balance.TOLERANCE;
 		double amount = res.getAmount();
 		return Functions.isZero(amount);
 	}

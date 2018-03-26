@@ -12,10 +12,10 @@ public class ResourceSpec {
 	private static int idCtr = 0;
 	private int id;
 	private Image image;	
+	private static File unknownFile;
 	
 	public ResourceSpec(String name) {
 		this(name, null);
-
 	}
 	
 	public ResourceSpec(String name, String imageFileName) {
@@ -26,7 +26,19 @@ public class ResourceSpec {
 					 	Balance.RES_FOLDER + "/" + 
 					 	imageFileName
 					);
-		System.out.println(imageFile.getAbsolutePath());
+		if(!imageFile.isFile()) {
+			System.out.println("Image not found or not defined for Resource: "+name);
+			if(unknownFile == null) {
+				imageFile = new File(
+						Balance.GRAPHICS_FOLDER + "/" +
+					 	Balance.RES_FOLDER + "/" + 
+					 	Balance.IM_UNKNOWN
+					);
+				unknownFile = imageFile;
+			} else {
+				imageFile = unknownFile;
+			}
+		}
 		image = new Image(imageFile.toURI().toString());
 	}
 	

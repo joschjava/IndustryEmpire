@@ -25,6 +25,10 @@ public class Balance {
 	public static final String GRAPHICS_FOLDER = "graphics";
 	public static final String RES_FOLDER = "res";
 	
+	/** Image file for resources whose images couldn't be found or weren't properly defined */
+	public static final String IM_UNKNOWN = "unknown.png";
+	
+	
 	/*
 	 * DISPLAY
 	 */
@@ -52,5 +56,6 @@ public class Balance {
 
 	/** Maximum basic salary of a driver (might be higher or lower due to driver qualifications) */
 	public static final int MAX_DRIVER_SALARY = 15000;
+	
 	
 }

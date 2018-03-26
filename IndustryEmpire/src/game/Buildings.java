@@ -23,11 +23,11 @@ public class Buildings {
 		BOOK_FACTORY.addResource(Resources.WOOD_DEB, 1, BuildingSpec.INPUT);
 		BOOK_FACTORY.addResource(Resources.BOOKS, 3, BuildingSpec.OUTPUT);
 
-		SUPER_RES_FACTORY = new BuildingSpec("All Res Factory",1869);
+		SUPER_RES_FACTORY = new BuildingSpec("All Res Factory",1850);
 		SUPER_RES_FACTORY.addResource(Resources.GOLD, 1, BuildingSpec.OUTPUT);
 		SUPER_RES_FACTORY.addResource(Resources.STONE, 2, BuildingSpec.OUTPUT);
-		SUPER_RES_FACTORY.addResource(Resources.UNKNOWN, 3, BuildingSpec.OUTPUT);
-		SUPER_RES_FACTORY.addResource(Resources.WHEAT, 4, BuildingSpec.OUTPUT);
+		SUPER_RES_FACTORY.addResource(Resources.WOOD_DEB, 3, BuildingSpec.OUTPUT);
+		SUPER_RES_FACTORY.addResource(Resources.HEAT, 4, BuildingSpec.OUTPUT);
 		SUPER_RES_FACTORY.addResource(Resources.WOOD, 5, BuildingSpec.OUTPUT);
 		System.out.println("Buildings initialised");
 	}
