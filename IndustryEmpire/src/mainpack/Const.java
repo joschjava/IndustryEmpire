@@ -42,7 +42,11 @@ public class Const {
 	/** Limit of amount of a resource that can be selected in ResourceSetter */
 	public static final int MAX_RES_CHOICE = 99;
 	
+	/** Amount of resource that is added when Ctrl is held */
+	public static final int RES_AMOUNT_CTRL = 10;
 	
+	/** Amount of resource that is added when Shift is held */
+	public static final int RES_AMOUNT_SHIFT = 5;
 	
 	
 	/*
