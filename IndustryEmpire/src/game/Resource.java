@@ -36,7 +36,18 @@ public class Resource {
 	}
 	
 	public void setAmount(double amount) {
-		history.addNumber(amount);
+		setAmount(amount, true);
+	}
+	
+	/**
+	 * Sets the amount of the resource with option to not log history
+	 * @param amount Value to set the amount to
+	 * @param logHistory true if history should be logged, false otherwise
+	 */
+	public void setAmount(double amount, boolean logHistory) {
+		if(logHistory) {
+			history.addNumber(amount);
+		}
 		this.amount.set(amount);
 	}
 	

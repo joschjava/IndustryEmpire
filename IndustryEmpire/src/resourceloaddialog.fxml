@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ResourcesLoadController">
+   <children>
+      <FlowPane fx:id="flowAllRes" prefHeight="200.0" prefWidth="200.0" />
+      <HBox>
+         <children>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <FlowPane fx:id="flowInputRes" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+               <content>
+                  <FlowPane fx:id="flowOutputRes" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <Button fx:id="btClose" mnemonicParsing="false" text="Close" />
+   </children>
+</VBox>

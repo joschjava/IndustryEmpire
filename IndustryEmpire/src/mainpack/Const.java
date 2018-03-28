@@ -32,11 +32,18 @@ public class Const {
 	public static final String IM_UNKNOWN = "unknown.png";
 	
 	
+	
 	/*
 	 * DISPLAY
 	 */
 	/** Number of digits after comma being displayed in view */
 	public static final int DISPLAY_DIGITS = 2;
+	
+	/** Limit of amount of a resource that can be selected in ResourceSetter */
+	public static final int MAX_RES_CHOICE = 99;
+	
+	
+	
 	
 	/*
 	 * DRIVER LIST 

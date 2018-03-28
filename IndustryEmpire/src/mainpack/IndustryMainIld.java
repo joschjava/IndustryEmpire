@@ -35,25 +35,7 @@ public class IndustryMainIld extends Application{
 	private double orgTranslateY;
 	
 	public static void main(String[] args) {
-		City essen = new City("Essen");
-		City berlin = new City("Berlin");
-		City frankfurt = new City("Frankfurt");
-		City bonn = new City("Bonn");
-		VehicleSpecs specs = new VehicleSpecs(2, 20);
-		VehicleSpecs specs2 = new VehicleSpecs(3, 20);
-		Vehicle karl = new Vehicle(specs, essen);
-		Vehicle karl2 = new Vehicle(specs2, berlin);
-		Itinerary itinerary = new Itinerary();
-		itinerary.add(new ItineraryItem(essen, null, null));
-		itinerary.add(new ItineraryItem(berlin, null, null));
-		itinerary.add(new ItineraryItem(frankfurt, null, null));
-		karl.setItinerary(itinerary);
-		
-		Itinerary itinerary2 = new Itinerary();
-		itinerary2.add(new ItineraryItem(essen, null, null));
-		itinerary2.add(new ItineraryItem(frankfurt, null, null));
-		itinerary2.add(new ItineraryItem(bonn, null, null));
-        karl2.setItinerary(itinerary2);
+
 		launch(args);
 	}
 	

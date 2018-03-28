@@ -1,7 +1,5 @@
 package gui;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import game.City;
@@ -10,22 +8,18 @@ import game.Vehicle;
 import javafx.beans.DefaultProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import mainpack.Const;
 
 
 
 @DefaultProperty("extension")
 public class WorldPane extends Pane{
 
-	public WorldPane() throws MalformedURLException{
+	public WorldPane(){
 		super();
+		this.setMinWidth(Const.MAPSIZE_X*1.1);
+		this.setMinHeight(Const.MAPSIZE_Y*1.1);
 		placeObjects();
 
 //		File bg = new File("/graphics/mud.png");

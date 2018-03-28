@@ -1,23 +1,27 @@
 package gui;
 
+import game.City;
 import game.Resource;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class CityPaneController {
 	
 	@FXML
 	HBox resourceDisplay;
 
+	@FXML
+	Label lbCityName;
+	
     @FXML
     public void initialize() {
     	
     }
 	
+    public void setCityName(City city) {
+    	lbCityName.setText(city.getName());
+    }
  
     public void addResource(Resource res) {
     	//TODO: Possible Performance inhancement: Load small image before and scale at loading

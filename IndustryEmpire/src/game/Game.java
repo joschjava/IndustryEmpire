@@ -27,6 +27,7 @@ public class Game {
     }
     
     private void init(){
+//    	new Buildings();
     	Buildings.init();
     	new Vehicles();
     }
