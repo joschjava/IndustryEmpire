@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CityPaneController">
-   <center>
-      <HBox fx:id="resourceDisplay" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
-   <top>
-      <Label fx:id="lbCityName" text="Cityname" BorderPane.alignment="CENTER">
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" styleClass="citybackground" stylesheets="@../CSS/city.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CityPaneController">
+   <children>
+      <Label fx:id="lbCityName" alignment="TOP_CENTER" text="Cityname">
          <font>
             <Font name="Copperplate Gothic Bold" size="34.0" />
          </font>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-         <BorderPane.margin>
-            <Insets top="5.0" />
-         </BorderPane.margin></Label>
-   </top>
-</BorderPane>
+      </Label>
+      <Pane>
+         <children>
+            <HBox fx:id="resourceDisplay" fillHeight="false" styleClass="resbackground" stylesheets="@../CSS/city.css" />
+         </children>
+      </Pane>
+   </children>
+</VBox>

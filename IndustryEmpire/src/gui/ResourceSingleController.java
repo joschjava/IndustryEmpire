@@ -34,25 +34,12 @@ public class ResourceSingleController {
 	
     @FXML
     public void initialize() {
-//    	btInc.setOnAction(new EventHandler<ActionEvent>() {
-//    		@Override public void handle(ActionEvent e) {
-//    			
-//    			incAmount();
-//    		}
-//    	});
-    	
-//    	btDec.setOnAction(new EventHandler<ActionEvent>() {
-//    		@Override public void handle(ActionEvent e) {
-//    			decAmount();
-//    		}
-//    	});
-
     	btInc.setOnMouseClicked((event) -> {
     		incAmount(getChgAmount(event));
     	});
     	
     	btDec.setOnMouseClicked((event) -> {
-    			decAmount(getChgAmount(event));
+    		decAmount(getChgAmount(event));
     	});
     	
     	

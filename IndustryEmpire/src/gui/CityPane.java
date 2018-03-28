@@ -8,7 +8,7 @@ import game.City;
 import game.Resource;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mainpack.IndustryMain;
@@ -20,9 +20,9 @@ public class CityPane {
         FXMLLoader loader = new FXMLLoader();
         URL res = IndustryMain.class.getResource("/citydialog.fxml");
         loader.setLocation(res);
-        BorderPane rootLayout = null;
+        VBox rootLayout = null;
 		try {
-			rootLayout = (BorderPane) loader.load();
+			rootLayout = (VBox) loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -65,16 +65,6 @@ private VehicleSpecs vehicleSpecs;
             });
     		flowAllRes.getChildren().add(iv);
     	});
-
-//        btClose.setOnMouseClicked(new EventHandler<MouseEvent>(){
-//            @Override
-//            public void handle(MouseEvent event) {
-//            	Resource[] res = getResources();
-//            	for (int i = 0; i < res.length; i++) {
-//					System.out.println(res[i]);
-//				}
-//            }
-//        });
         
 		btClose.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
