@@ -5,23 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ResourcesLoadController">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ResourceLoadController">
    <children>
       <FlowPane fx:id="flowAllRes" prefHeight="200.0" prefWidth="200.0" />
-      <HBox>
-         <children>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
-               <content>
-                  <FlowPane fx:id="flowInputRes" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </ScrollPane>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
-               <content>
-                  <FlowPane fx:id="flowOutputRes" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </HBox>
+      <ScrollPane prefViewportWidth="400.0">
+         <content>
+            <FlowPane fx:id="flowInputRes" hgap="5.0" vgap="5.0" />
+         </content>
+      </ScrollPane>
+      <ProgressBar fx:id="vehLoad" progress="0.0" />
       <Button fx:id="btClose" mnemonicParsing="false" text="Close" />
    </children>
 </VBox>

@@ -50,6 +50,10 @@ public class ItineraryItem {
 	public Resource[] getInput() {
 		return input;
 	}
+	
+	public void setInput(Resource[] input) {
+		this.input = input;
+	}
 
 	public Resource[] getOutput() {
 		return output;

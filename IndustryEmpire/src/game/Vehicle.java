@@ -133,6 +133,12 @@ public class Vehicle extends Position implements  TickListener{
 	}
 	
 	private void load() {
+		Resource[] input2 = itinerary.getInput();
+		if(input2 != null) {
+			for (int i = 0; i < input2.length; i++) {
+				System.out.println(input2[i]);
+			}
+		}
 		System.out.println("Vehicle "+id+" loads in "+curCity);
 		boolean full = true;
 		Resource[] input = itinerary.getInput();

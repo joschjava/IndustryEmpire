@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ResourceSetterController">
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ResourceSingleController">
    <children>
-      <ImageView fx:id="resourceImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <ImageView fx:id="resourceImage" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox alignment="CENTER">
          <children>
             <Button fx:id="btInc" mnemonicParsing="false" text="+" />
             <Label fx:id="lbAmount" text="0" />

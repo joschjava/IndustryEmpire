@@ -15,7 +15,7 @@ import javafx.stage.WindowEvent;
 import javafx.util.converter.NumberStringConverter;
 import mainpack.Const;
 
-public class ResourceSetterController {
+public class ResourceSingleController {
 
 	@FXML
 	ImageView resourceImage;

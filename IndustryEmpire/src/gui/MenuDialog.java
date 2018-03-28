@@ -3,16 +3,18 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 
+import game.Resource;
+import game.Vehicle;
+import game.VehicleSpecs;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mainpack.IndustryMain;
-import objects.InputOutputResources;
 
 public class MenuDialog {
 
-	public static InputOutputResources showResourceLoadDialog() {
+	public static Resource[] showResourceLoadDialog(VehicleSpecs vehicleSpecs) {
 		String fxmlFile = "resourceloaddialog.fxml";
         FXMLLoader loader = new FXMLLoader();
         URL res = IndustryMain.class.getResource("/"+fxmlFile);
@@ -24,11 +26,12 @@ public class MenuDialog {
 			e.printStackTrace();
 		}
 		ResourceLoadController controller = loader.getController();
+		controller.setVehicleSpecs(vehicleSpecs);
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.showAndWait();
-		return controller.getInputOutputResources();
+		return controller.getResources();
 	}
 	
 	

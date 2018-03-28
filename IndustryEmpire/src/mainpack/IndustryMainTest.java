@@ -2,6 +2,7 @@ package mainpack;
 
 import game.Game;
 import game.Resources;
+import gui.MenuDialog;
 import gui.ResourceSetter;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -17,17 +18,19 @@ public class IndustryMainTest extends Application {
 	Pane route = new Pane();
 	
 	public static void main(String[] args) {
+		new Resources();
 		launch(args);
 	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		ResourceSetter resSetter = new ResourceSetter(Resources.GOLD);
+		MenuDialog.showResourceLoadDialog(null);
+//		ResourceSetter resSetter = new ResourceSetter(Resources.GOLD);
 
-		Scene scene = new Scene(resSetter);
-		primaryStage.setScene(scene);
-		Game.getInstance().start();
-		primaryStage.show();
+//		Scene scene = new Scene(resSetter);
+//		primaryStage.setScene(scene);
+//		Game.getInstance().start();
+//		primaryStage.show();
 
 		
 	}

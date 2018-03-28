@@ -48,14 +48,14 @@ public class IndustryMain extends Application {
 		City newtown = new City("Newtown");
 		new Buildings();
 		new Building(Buildings.SUPER_RES_FACTORY, essen);
-		Vehicle karl = new Vehicle(new VehicleSpecs(10,20), essen);
-        Itinerary itinerary = new Itinerary();
-        itinerary.add(new ItineraryItem(essen, null, null));
-        itinerary.add(new ItineraryItem(bonn, null, null));
-        itinerary.add(new ItineraryItem(newtown, null, null));
-        itinerary.add(new ItineraryItem(berlin, null, null));
-        itinerary.add(new ItineraryItem(frankfurt, null, null));
-        karl.setItinerary(itinerary);
+//		Vehicle karl = new Vehicle(new VehicleSpecs(10,20), essen);
+//        Itinerary itinerary = new Itinerary();
+//        itinerary.add(new ItineraryItem(essen, null, null));
+//        itinerary.add(new ItineraryItem(bonn, null, null));
+//        itinerary.add(new ItineraryItem(newtown, null, null));
+//        itinerary.add(new ItineraryItem(berlin, null, null));
+//        itinerary.add(new ItineraryItem(frankfurt, null, null));
+//        karl.setItinerary(itinerary);
 		launch(args);
 	}
 	

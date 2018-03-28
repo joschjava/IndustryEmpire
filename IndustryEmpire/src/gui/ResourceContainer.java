@@ -1,9 +1,5 @@
 package gui;
 
-import java.text.NumberFormat;
-
-import com.sun.javafx.css.converters.StringConverter;
-
 import game.Resource;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.StringProperty;

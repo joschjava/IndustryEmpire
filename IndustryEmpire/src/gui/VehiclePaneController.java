@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import game.City;
 import game.Itinerary;
 import game.ItineraryItem;
+import game.Resource;
 import game.Vehicle;
 import game.VehicleSpecs;
 import javafx.collections.FXCollections;
@@ -44,6 +45,9 @@ public class VehiclePaneController {
 	@FXML
 	public Button btCancel;
 	
+	@FXML
+	public Button btFreight;
+	
 	private Itinerary itinerary = null;
 
 	private Vehicle vehicle;
@@ -79,14 +83,25 @@ public class VehiclePaneController {
 		});
 
 		btCancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				cancel();
+				closeStageFromEvent(e);
+			}
+		});
+		
+		btFreight.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		        cancel();
-		        closeStageFromEvent(e);
+		        Resource[] res = MenuDialog.showResourceLoadDialog(getSelectedVehicleSpecs());
+		        getSelectedItineraryItem().setInput(res);
 		    }
 		});
 
     }
 	
+    private VehicleSpecs getSelectedVehicleSpecs() {
+    	return vehicles.getSelectionModel().getSelectedItem();
+    }
+    
     private void add() {
     	if(itinerary == null) {
     		itinerary = new Itinerary();
@@ -105,6 +120,10 @@ public class VehiclePaneController {
     		itinerary.remove(item);
     	}
     	shittyUpdateList();
+    }
+    
+    private ItineraryItem getSelectedItineraryItem() {
+    	return itineraryView.getSelectionModel().getSelectedItem();
     }
     
     private void buy() {

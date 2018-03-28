@@ -5,6 +5,7 @@ import java.net.URL;
 
 import game.Resource;
 import game.ResourceSpec;
+import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -12,7 +13,7 @@ import mainpack.IndustryMain;
 
 public class ResourceSetter extends Pane{
 
-	ResourceSetterController controller;
+	ResourceSingleController controller;
 	ResourceSpec resSpec;
 	
 	public ResourceSetter(ResourceSpec resSpec){
@@ -44,4 +45,7 @@ public class ResourceSetter extends Pane{
 		return res;
 	}
 	
+	public IntegerProperty amountProperty() {
+		return controller.amountProperty();
+	}
 }
