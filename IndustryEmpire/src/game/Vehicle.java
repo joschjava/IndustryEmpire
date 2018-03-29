@@ -1,8 +1,7 @@
 package game;
 
 import java.awt.Point;
-
-import org.apache.commons.lang3.reflect.MethodUtils;
+import java.util.ArrayList;
 
 import gui.GuiVehicle;
 import mainpack.Functions;
@@ -13,7 +12,6 @@ public class Vehicle extends Position implements  TickListener{
 
 	/** City vehicle is driving to or located at */
 	private City curCity = null;
-	private boolean driving = false;
 	/** Destinations to drive to with in and output */
 	Itinerary itinerary = null;
 	private double distToLocation = 0; 
@@ -22,10 +20,16 @@ public class Vehicle extends Position implements  TickListener{
 	private static int idCounter = 0;
 	private VehicleSpecs specs;
 	private ResourceList load = new ResourceList();
-	private boolean loadingDone = true;
 	private double difX;
 	private double difY;
 	private GuiVehicle guiObject;
+	private int status = LOADING;
+	
+	
+	private static final int DRIVING = 0;
+	private static final int UNLOADING = 1;
+	private static final int LOADING = 2;
+	private static final int IDLE = 3;
 	
 	public Vehicle(VehicleSpecs specs, City city){
 		super();
@@ -34,8 +38,7 @@ public class Vehicle extends Position implements  TickListener{
 		id = idCounter++;
 		Game.getInstance().addListener(this);
 	}
-	
-	
+		
 	public void setObserver(GuiVehicle guiObject) {
 		this.guiObject = guiObject;
 	}
@@ -71,19 +74,16 @@ public class Vehicle extends Position implements  TickListener{
 			guiObject.updatePosition(position, angleDeg);
 		}
 	}
-
-	
 	
 	public void driveToNextItineraryItem() {
-		boolean activeNextDestination = itinerary.setNextDestination();
-		if(activeNextDestination) {
+		boolean nextDest = itinerary.setNextDestination();
+		if(nextDest) {
 			if(curCity != null) {
 				curCity.removeVehicle(this);
 				curCity = null;
 			}
 			curCity = itinerary.getDestination();	
-			driving = true;
-			loadingDone = true;
+			status = DRIVING;
 			System.out.println("Vehicle "+id+" drives to "+curCity);
 		}
 	}
@@ -101,8 +101,7 @@ public class Vehicle extends Position implements  TickListener{
 			System.out.println("Vehicle "+id+" arrived in "+curCity);
 			//Arrived
 			setLocation(curCity);
-			driving = false;
-			loadingDone = false;
+			status = UNLOADING;
 		}
 	}
 
@@ -132,16 +131,20 @@ public class Vehicle extends Position implements  TickListener{
 		return angleDeg;
 	}
 	
+	private void unload() {
+		System.out.println("Vehicle "+id+" unloads in "+curCity);	
+		ArrayList<Resource> allRes = load.getAllResources();
+		allRes.forEach((resource)-> {
+			curCity.chgResource(resource, City.PLUS);
+		});
+		load.clear();
+		status = LOADING;
+	}
+	
 	private void load() {
-		Resource[] input2 = itinerary.getInput();
-		if(input2 != null) {
-			for (int i = 0; i < input2.length; i++) {
-				System.out.println(input2[i]);
-			}
-		}
 		System.out.println("Vehicle "+id+" loads in "+curCity);
 		boolean full = true;
-		Resource[] input = itinerary.getInput();
+		Resource[] input = itinerary.getLoad();
 		if(input != null) { 
 			for(Resource res: input) {
 				Resource cityChgResource = curCity.chgResource(res, City.MINUS);
@@ -153,19 +156,12 @@ public class Vehicle extends Position implements  TickListener{
 					full = false;
 				}
 			}
-		}				
-		Resource[] output = itinerary.getOutput();
-		if(output != null) { 
-			for(Resource res: output) {
-				Resource vehChgResource = load.chgResourceAmountBy(res, ResourceList.MINUS);
-				curCity.chgResource(vehChgResource, City.PLUS);
-			}
 		}
 		
 		if(!itinerary.getWaitForFull()) { // If vehicle should wait for full
-			loadingDone = true;
+			status = IDLE;
 		} else if(full) { 		// Vehicle waits for full, is it satisfied?
-			loadingDone = true;
+			status = IDLE;
 		}
 	}
 	
@@ -179,39 +175,40 @@ public class Vehicle extends Position implements  TickListener{
 		System.out.println();
 	}
 	
-	public boolean isDriving() {
-		return driving;
-	}
-	
 	public City getCity() {
 		return curCity;
 	}
 	
 	public void setItinerary(Itinerary itinerary) {
 		this.itinerary = itinerary;
-		itinerary.setPos(-1);
 	}
 
 	@Override
 	public String toString() {
-		return "Vehicle "+id+": "+getX()+":"+getY()+", "+curCity+", Dif:"+Math.round(difX*100)/100.0+","+Math.round(difY*100)/100.0+", Driving: "+driving;
-	}
-	
-	public void printToMatlab() {
-		System.out.println("car("+Game.getTick()+",:) = ["+getX()+" "+getY()+"];");
+		return "Vehicle "+id+": "+getX()+":"+getY()+", "+curCity+", Dif:"+Math.round(difX*100)/100.0+","+Math.round(difY*100)/100.0+", status: "+status;
 	}
 	
 	@Override
 	public void onTick() {
-		if(driving) {
-			drive();
-		} else {
-			if(!loadingDone) {
+		switch(status) {
+			case DRIVING:
+				drive();
+				break;
+				
+			case UNLOADING:
+				unload();
+				break;
+				
+			case LOADING:
 				load();
-			} else {
+				break;
+				
+			case IDLE:
 				driveToNextItineraryItem();	
-			}
+				break;
 		}
 	}
+
+
 	
 }

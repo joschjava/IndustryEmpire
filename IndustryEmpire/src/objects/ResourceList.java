@@ -115,6 +115,13 @@ public class ResourceList extends ArrayList<Resource> {
 	}
 	
 	/**
+	 * Remove all resources from list
+	 */
+	public void clearList() {
+		super.clear();
+	}
+	
+	/**
 	 * Sets the amount of a specific resource
 	 * @param res
 	 * @deprecated Use for debugging only

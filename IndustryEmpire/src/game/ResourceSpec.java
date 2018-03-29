@@ -18,6 +18,7 @@ public class ResourceSpec {
 	private static int idCtr = 0;
 	private int id;
 	private Image image;	
+	private String imageFileName;
 	private static File unknownFile;
 	
 	//TODO: Performance: Change this to Array
@@ -31,6 +32,11 @@ public class ResourceSpec {
 	public ResourceSpec(String name, String imageFileName) {
 		this.name = name;
 		this.id = idCtr++;
+		this.imageFileName = imageFileName;
+		allResources.add(this);
+	}
+
+	private void loadImage() {
 		File imageFile = new File(
 						Const.GRAPHICS_FOLDER + "/" +
 					 	Const.RES_FOLDER + "/" + 
@@ -50,7 +56,6 @@ public class ResourceSpec {
 			}
 		}
 		image = new Image(imageFile.toURI().toString());
-		allResources.add(this);
 	}
 	
 	public static ArrayList<ResourceSpec> getAllResourceSpecs() {
@@ -58,6 +63,9 @@ public class ResourceSpec {
 	}
 	
 	public Image getImage() {
+		if(image == null) {
+			loadImage();
+		}
 		return image;
 	}
 	

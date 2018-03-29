@@ -9,7 +9,7 @@ public class Itinerary {
 
 	private ArrayList<ItineraryItem> itinerary = new ArrayList<ItineraryItem>();
 	private boolean loop = true;
-	private int curPos = -1;
+	private int curPos = 0;
 	
 	/**
 	 * @param itineraryView
@@ -58,15 +58,13 @@ public class Itinerary {
 		return itinerary.get(curPos).getDestination();
 	}
 	
-	public Resource[] getInput() {
-		return itinerary.get(curPos).getInput();
-	}
-	
-	public Resource[] getOutput() {
-		return itinerary.get(curPos).getOutput();
+	public Resource[] getLoad() {
+		
+		return itinerary.get(curPos).getLoad();
 	}
 	
 	public void setPos(int pos) {
+		
 //		if(0 <= pos && pos < itinerary.size()) {
 			curPos = pos;
 //		} else {

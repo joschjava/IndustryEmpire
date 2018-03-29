@@ -166,6 +166,7 @@ public class City extends Position{
 	}
 	
 	public double getX() {
+		
 		return position.getX();
 	}
 	

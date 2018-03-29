@@ -26,6 +26,9 @@ import javafx.stage.Stage;
 // Update factories only when it is interacted with
 // Image is being assigned to GuiVehicle every time
 
+//Load list before game:
+// Images for resources? (ResSpec.loadImage?)
+
 public class IndustryMain extends Application {
 
 	Pane route = new Pane();
@@ -48,7 +51,8 @@ public class IndustryMain extends Application {
 		City bonn = new City("Bonn");
 		City newtown = new City("Newtown");
 		new Buildings();
-		new Building(Buildings.SUPER_RES_FACTORY, essen);
+		new Building(Buildings.WOOD_FACTORY, essen);
+		new Building(Buildings.BOOK_FACTORY, frankfurt);
 //		Vehicle karl = new Vehicle(new VehicleSpecs(10,20), essen);
 //        Itinerary itinerary = new Itinerary();
 //        itinerary.add(new ItineraryItem(essen, null, null));

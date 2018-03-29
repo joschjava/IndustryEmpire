@@ -3,7 +3,7 @@ package game;
 public class Buildings {
 	
 	public static BuildingSpec PANCAKE_FACTORY;
-//	public static BuildingSpec WOOD_FACTORY;
+	public static BuildingSpec WOOD_FACTORY;
 	public static BuildingSpec BOOK_FACTORY;
 	public static BuildingSpec SUPER_RES_FACTORY;
 
@@ -16,11 +16,11 @@ public class Buildings {
 //		PANCAKE_FACTORY.addResource(Resources.PANCAKE, 10, BuildingSpec.OUTPUT);
 //		PANCAKE_FACTORY.addResource(Resources.HEAT, 20, BuildingSpec.OUTPUT);
 //		
-//		WOOD_FACTORY = new BuildingSpec("Wood Factory",10);
-//		WOOD_FACTORY.addResource(Resources.WOOD, 3, BuildingSpec.OUTPUT);
+		WOOD_FACTORY = new BuildingSpec("Wood Factory",10);
+		WOOD_FACTORY.addResource(Resources.WOOD, 3, BuildingSpec.OUTPUT);
 		
 		BOOK_FACTORY = new BuildingSpec("Book Factory",10);
-		BOOK_FACTORY.addResource(Resources.WOOD_DEB, 1, BuildingSpec.INPUT);
+		BOOK_FACTORY.addResource(Resources.WOOD, 1, BuildingSpec.INPUT);
 		BOOK_FACTORY.addResource(Resources.BOOKS, 3, BuildingSpec.OUTPUT);
 
 		SUPER_RES_FACTORY = new BuildingSpec("All Res Factory",50);
