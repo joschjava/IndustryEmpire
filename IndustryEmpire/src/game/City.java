@@ -31,9 +31,6 @@ public class City extends Position{
 	/** List of all resources contained in this city */
 	private ResourceList resources = new ResourceList();
 	
-	public static final int PLUS = ResourceList.PLUS;
-	public static final int MINUS = ResourceList.MINUS;
-	
 	public static ArrayList<City> cityList = new ArrayList<City>();
 	
 	/**
@@ -123,7 +120,7 @@ public class City extends Position{
 	/**
 	 *  Changes resource amount provided in the given resource
 	 * @param res
-	 * @param operation Use PLUS or MINUS to add or Subtract resource
+	 * @param operation Use ResourceList.PLUS or MINUS to add or Subtract resource
 	 * @return Resources that have been changed
 	 */
 	public Resource chgResource(Resource res, int operation) {
@@ -138,9 +135,9 @@ public class City extends Position{
 	public void chgResource(ResourceSpec resSpec, double amount) {
 		int operation = 0;
 		if(amount >= 0) {
-			operation = PLUS;
+			operation = ResourceList.PLUS;
 		} else {
-			operation = MINUS;
+			operation = ResourceList.MINUS;
 		}
 		Resource res = new Resource(resSpec, Math.abs(amount));
 		chgResource(res, operation);

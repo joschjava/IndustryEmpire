@@ -141,23 +141,29 @@ public class Vehicle extends Position implements  TickListener{
 		System.out.println("Vehicle "+id+" unloads in "+curCity);	
 		ArrayList<Resource> allRes = load.getAllResources();
 		allRes.forEach((resource)-> {
-			curCity.chgResource(resource, City.PLUS);
+			curCity.chgResource(resource, ResourceList.PLUS);
 		});
 		load.clear();
 		status.set(LOADING);
 	}
 	
 	private void load() {
+		//TODO: initialise variables once, then only iterate for loop
 		System.out.println("Vehicle "+id+" loads in "+curCity);
 		boolean full = true;
 		Resource[] input = itinerary.getLoad();
 		if(input != null) { 
 			for(Resource res: input) {
-				Resource cityChgResource = curCity.chgResource(res, City.MINUS);
+				//TODO: This takes a lot of resources, dude!
+				Resource leftRes = res.getCopy();
+				Resource vehicleRes = load.getElementByResSpec(leftRes.getSpec());
+				double leftAmount = res.getAmount()-vehicleRes.getAmount();
+				leftRes.setAmount(leftAmount, false);
+				
+				Resource cityChgResource = curCity.chgResource(leftRes, ResourceList.MINUS);
 				load.chgResourceAmountBy(cityChgResource, ResourceList.PLUS);
-				Resource vehicleRes = load.getElementByResSpec(res.getSpec());
+				
 				//Check if enough Resources are loaded to vehicle as specified in Itinerary
-				System.out.println(vehicleRes);
 				boolean partFull = vehicleRes.isEqualAmount(res);
 				if(!partFull) {
 					full = false;
