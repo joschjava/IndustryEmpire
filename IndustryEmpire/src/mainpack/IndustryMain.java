@@ -9,14 +9,12 @@ import game.City;
 import game.Game;
 import game.Itinerary;
 import game.ItineraryItem;
+import game.Resource;
+import game.Resources;
 import game.Vehicle;
 import game.VehicleSpecs;
-import game.Vehicles;
-import gui.CityPane;
-import gui.WorldPane;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -53,14 +51,18 @@ public class IndustryMain extends Application {
 		new Buildings();
 		new Building(Buildings.WOOD_FACTORY, essen);
 		new Building(Buildings.BOOK_FACTORY, frankfurt);
-//		Vehicle karl = new Vehicle(new VehicleSpecs(10,20), essen);
-//        Itinerary itinerary = new Itinerary();
-//        itinerary.add(new ItineraryItem(essen, null, null));
-//        itinerary.add(new ItineraryItem(bonn, null, null));
-//        itinerary.add(new ItineraryItem(newtown, null, null));
-//        itinerary.add(new ItineraryItem(berlin, null, null));
-//        itinerary.add(new ItineraryItem(frankfurt, null, null));
-//        karl.setItinerary(itinerary);
+		Vehicle karl = new Vehicle(new VehicleSpecs(3,20), essen);
+        Itinerary itinerary = new Itinerary();
+        Resource[] input = {new Resource(Resources.WOOD,20)};
+        ItineraryItem item = new ItineraryItem(essen, input);
+        item.setWaitForFull(true);
+		itinerary.add(item);
+        itinerary.add(new ItineraryItem(bonn, null));
+        itinerary.add(new ItineraryItem(newtown, null));
+        itinerary.add(new ItineraryItem(berlin, null));
+        itinerary.add(new ItineraryItem(frankfurt, null));
+        
+        karl.setItinerary(itinerary);
 		launch(args);
 	}
 	

@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import gui.GuiVehicle;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import mainpack.Functions;
 import objects.ResourceList;
 
@@ -23,13 +25,13 @@ public class Vehicle extends Position implements  TickListener{
 	private double difX;
 	private double difY;
 	private GuiVehicle guiObject;
-	private int status = LOADING;
+	private IntegerProperty status = new SimpleIntegerProperty(LOADING);
 	
 	
-	private static final int DRIVING = 0;
-	private static final int UNLOADING = 1;
-	private static final int LOADING = 2;
-	private static final int IDLE = 3;
+	public static final int DRIVING = 0;
+	public static final int UNLOADING = 1;
+	public static final int LOADING = 2;
+	public static final int IDLE = 3;
 	
 	public Vehicle(VehicleSpecs specs, City city){
 		super();
@@ -83,9 +85,13 @@ public class Vehicle extends Position implements  TickListener{
 				curCity = null;
 			}
 			curCity = itinerary.getDestination();	
-			status = DRIVING;
+			status.set(DRIVING);
 			System.out.println("Vehicle "+id+" drives to "+curCity);
 		}
+	}
+	
+	public IntegerProperty statusProperty() {
+		return status;
 	}
 	
 	private void drive() {
@@ -101,7 +107,7 @@ public class Vehicle extends Position implements  TickListener{
 			System.out.println("Vehicle "+id+" arrived in "+curCity);
 			//Arrived
 			setLocation(curCity);
-			status = UNLOADING;
+			status.set(UNLOADING);
 		}
 	}
 
@@ -138,7 +144,7 @@ public class Vehicle extends Position implements  TickListener{
 			curCity.chgResource(resource, City.PLUS);
 		});
 		load.clear();
-		status = LOADING;
+		status.set(LOADING);
 	}
 	
 	private void load() {
@@ -151,6 +157,7 @@ public class Vehicle extends Position implements  TickListener{
 				load.chgResourceAmountBy(cityChgResource, ResourceList.PLUS);
 				Resource vehicleRes = load.getElementByResSpec(res.getSpec());
 				//Check if enough Resources are loaded to vehicle as specified in Itinerary
+				System.out.println(vehicleRes);
 				boolean partFull = vehicleRes.isEqualAmount(res);
 				if(!partFull) {
 					full = false;
@@ -159,9 +166,9 @@ public class Vehicle extends Position implements  TickListener{
 		}
 		
 		if(!itinerary.getWaitForFull()) { // If vehicle should wait for full
-			status = IDLE;
+			status.set(IDLE);
 		} else if(full) { 		// Vehicle waits for full, is it satisfied?
-			status = IDLE;
+			status.set(IDLE);
 		}
 	}
 	
@@ -190,7 +197,7 @@ public class Vehicle extends Position implements  TickListener{
 	
 	@Override
 	public void onTick() {
-		switch(status) {
+		switch(status.intValue()) {
 			case DRIVING:
 				drive();
 				break;

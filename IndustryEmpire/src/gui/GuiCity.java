@@ -21,6 +21,7 @@ public class GuiCity {
 	private Pane pane;
 	private City city;
 	private ImageView iv;
+	private Glow highlightEffect;
 	
 	public GuiCity(City city){
 		this.city = city;
@@ -63,10 +64,12 @@ public class GuiCity {
 	}
 	
 	public void highlight() {
-		Glow shine = new Glow(1.0);
-		ColorAdjust red = new ColorAdjust(0.0, 1.0, 0.0, 0.0);
-		shine.setInput(red);
-		iv.setEffect(shine);
+		if(highlightEffect ==  null) {
+			highlightEffect = new Glow(1.0);
+			ColorAdjust red = new ColorAdjust(0.0, 1.0, 0.0, 0.0);
+			highlightEffect.setInput(red);
+		}
+		iv.setEffect(highlightEffect);
 	}
 	
 	public void unhighlight() {
