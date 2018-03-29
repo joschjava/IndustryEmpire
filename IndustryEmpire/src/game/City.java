@@ -95,6 +95,9 @@ public class City extends Position{
 	
 	void addBuilding(Building building) {
 		buildings.add(building);
+		building.getBuildingSpec().getInputRes().forEach((res)->chgResource(res.getSpec(), 0.0));
+		building.getBuildingSpec().getOutputRes().forEach((res)->chgResource(res.getSpec(), 0.0));
+		//		chgResource(res, operation)
 	}
 	
 	/**

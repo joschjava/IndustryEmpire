@@ -64,6 +64,10 @@ public class Building implements TickListener{
 		return allResources;
 	}
 	
+	public BuildingSpec getBuildingSpec() {
+		return buildingSpec;
+	}
+	
 	@Override
 	public void onTick() {
 		boolean produce = true;
