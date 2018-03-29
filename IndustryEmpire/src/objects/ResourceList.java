@@ -81,7 +81,7 @@ public class ResourceList extends ArrayList<Resource> {
 			return element.get();
 		} else {
 			// If resource doesn't exist, create, so it can be managed
-			System.err.println("Resource needed to be created that didn't exist, was this intended?");
+			System.err.println("Resource '"+resSpec.getName()+"' didn't exist and needed to be created, was this intended?");
 			Resource res = new Resource(resSpec, 0.0);
 			chgResourceAmountBy(res, PLUS);
 			return res;
@@ -119,6 +119,14 @@ public class ResourceList extends ArrayList<Resource> {
 	 */
 	public void clearList() {
 		super.clear();
+	}
+	
+	/**
+	@deprecated use clearLIst
+	*/
+	@Override
+	public void clear() {
+		System.err.println("Use clearList() instead of clear");
 	}
 	
 	/**

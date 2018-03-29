@@ -143,7 +143,7 @@ public class Vehicle extends Position implements  TickListener{
 		allRes.forEach((resource)-> {
 			curCity.chgResource(resource, ResourceList.PLUS);
 		});
-		load.clear();
+		load.clearList();
 		status.set(LOADING);
 	}
 	
@@ -155,6 +155,7 @@ public class Vehicle extends Position implements  TickListener{
 		if(input != null) { 
 			for(Resource res: input) {
 				//TODO: This takes a lot of resources, dude!
+				//Create static resource?
 				Resource leftRes = res.getCopy();
 				Resource vehicleRes = load.getElementByResSpec(leftRes.getSpec());
 				double leftAmount = res.getAmount()-vehicleRes.getAmount();
