@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import game.Resource;
 import game.ResourceSpec;
-import game.Vehicle;
 import game.VehicleSpecs;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,14 +41,11 @@ public class ResourceLoadController {
 	@FXML
 	public ProgressBar vehLoad;
 	
-//	static DoubleProperty progressProp;
-//	NumberBinding sumResources;
-//	NumberBinding progress;
-//	boolean first = true;
-	
 	int load = 10;
 
 private VehicleSpecs vehicleSpecs;
+
+private NumberBinding leftLoad;
 	
     @FXML
     public void initialize() {
@@ -77,8 +77,34 @@ private VehicleSpecs vehicleSpecs;
     private void addResourceToLoad(ResourceSpec resSpec) {
     	ResourceSetter resourceSetter = new ResourceSetter(resSpec);
     	flowInputRes.getChildren().add(resourceSetter);
+    	bindProgressProperty();
     }
 
+    //TODO: Don't do this every time
+    private void bindProgressProperty() {
+    	FilteredList<Node> resSetters = flowInputRes.getChildren().filtered((node) -> {
+    		if(node instanceof ResourceSetter) {
+    			return true;
+    		} else {
+    			return false;
+    		} 
+    	});
+    	if(resSetters.size() > 0) {
+    		ResourceSetter resSetter0 = ((ResourceSetter)resSetters.get(0));
+    		NumberBinding num0 = resSetter0.amountProperty().add(new SimpleIntegerProperty(0));
+    		NumberBinding lastBinding = num0;
+    		for(int i=1;i<resSetters.size();i++) {
+    			ResourceSetter resSetter = ((ResourceSetter)resSetters.get(i));
+    			NumberBinding num = lastBinding.add(resSetter.amountProperty());
+    			lastBinding = num;
+    		}
+    		NumberBinding result = lastBinding.divide((double)load);
+    		vehLoad.progressProperty().bind(result);
+    		vehLoad.styleProperty().bind(
+    				Bindings.when(result.lessThan(1.0)).then("-fx-accent: green").otherwise("-fx-accent: red")
+    		);
+    	}    	
+    }
     
 	public Resource[] getResources() {
 		FilteredList<Node> resList = flowInputRes.getChildren().filtered((child) -> {
@@ -111,22 +137,5 @@ private VehicleSpecs vehicleSpecs;
         }
         stage.close();
     }
-
-	 
-	
-//	System.out.println(progressProp.doubleValue());
-//	if(first) {
-//		progressProp = vehLoad.progressProperty();
-//		sumResources = resourceSetter.amountProperty().add(0);
-////		sumResources.add(resourceSetter.amountProperty());
-//    	progress = sumResources.divide((double)load);
-//    	progressProp.bind(progress);
-//    	first = false;
-//	} else {
-//		System.out.println("else");
-//		progress = sumResources.add(resourceSetter.amountProperty()).divide((double)load);
-//		progressProp.bind(progress);
-//	}
-//	sumResources.getDependencies().forEach(System.out::println);
 	
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import game.City;
 import game.Resource;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;

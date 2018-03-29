@@ -4,6 +4,7 @@ import java.io.File;
 
 import game.City;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Glow;
@@ -59,6 +60,7 @@ public class GuiCity {
 		text = new Text(city.getName());
 		text.relocate(0, 30);
 		pane.getChildren().addAll(iv, text);
+		pane.setCursor(Cursor.HAND);
 	}
 	
 	public void highlight() {

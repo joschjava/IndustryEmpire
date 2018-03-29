@@ -1,18 +1,14 @@
 package gui;
 
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.converter.NumberStringConverter;
 import mainpack.Const;
 
@@ -52,6 +48,15 @@ public class ResourceSingleController {
     }
     
     private void incAmount(int chg) {
+//    	if(leftLoad != null) {
+//        	int leftLoadInt = leftLoad.intValue();
+//        	if(leftLoadInt > chg) {
+//        		chg = leftLoadInt;
+//        	}
+//    	} else {
+//    		System.err.println("Left load not set! Use setLeftLoadBinding in "+ResourceSingleController.class.getName());
+//    	}
+
     	int newAmount = getAmount()+chg;
 		if(newAmount > Const.MAX_RES_CHOICE) {
 			newAmount = Const.MAX_RES_CHOICE;
@@ -70,7 +75,7 @@ public class ResourceSingleController {
 		} 
 		amount.set(newAmount);
 	}
-    
+	
 	/**
 	 * Returns the change of value depending on which key is pressed
 	 * @param event Mouseevent

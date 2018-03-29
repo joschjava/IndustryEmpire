@@ -5,6 +5,7 @@ import java.net.URL;
 
 import game.Resource;
 import game.ResourceSpec;
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -15,7 +16,12 @@ public class ResourceSetter extends Pane{
 
 	ResourceSingleController controller;
 	ResourceSpec resSpec;
+	NumberBinding leftLoad;
 	
+	/**
+	 * Creates a pane to set a single Resource amount
+	 * @param resSpec
+	 */
 	public ResourceSetter(ResourceSpec resSpec){
 		super();
 		this.resSpec = resSpec;

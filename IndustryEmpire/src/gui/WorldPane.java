@@ -2,6 +2,8 @@ package gui;
 
 import java.util.ArrayList;
 
+import com.sun.glass.ui.Cursor;
+
 import game.City;
 import game.Position;
 import game.Vehicle;
@@ -21,6 +23,11 @@ public class WorldPane extends Pane{
 		this.setMinWidth(Const.MAPSIZE_X*1.1);
 		this.setMinHeight(Const.MAPSIZE_Y*1.1);
 		placeObjects();
+//		this.setCursor();
+
+		String image = WorldPane.class.getResource("/mud.png").toExternalForm();
+		this.setStyle("-fx-background-image: url('" + image + "'); " +
+		           "-fx-background-position: center center; ");
 
 //		File bg = new File("/graphics/mud.png");
 //		BackgroundImage myBI;
