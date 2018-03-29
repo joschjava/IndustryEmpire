@@ -2,6 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
+import game.ItineraryItem;
 import game.Resource;
 import game.ResourceSpec;
 import game.VehicleSpecs;
@@ -45,7 +46,9 @@ public class ResourceLoadController {
 
 private VehicleSpecs vehicleSpecs;
 
-private NumberBinding leftLoad;
+private ItineraryItem itinItem;
+
+//private NumberBinding leftLoad;
 	
     @FXML
     public void initialize() {
@@ -72,6 +75,12 @@ private NumberBinding leftLoad;
 			}
 		});
         
+    }
+    
+    private void addResourceToLoad(ResourceSpec resSpec, int amount) {
+    	ResourceSetter resourceSetter = new ResourceSetter(resSpec, amount);
+    	flowInputRes.getChildren().add(resourceSetter);
+    	bindProgressProperty();
     }
     
     private void addResourceToLoad(ResourceSpec resSpec) {
@@ -137,5 +146,14 @@ private NumberBinding leftLoad;
         }
         stage.close();
     }
+
+	public void setItineraryItem(ItineraryItem itinItem) {
+		Resource[] load = itinItem.getLoad();
+		if(load != null) {
+			for (int i = 0; i < load.length; i++) {
+				addResourceToLoad(load[i].getSpec(), (int) load[i].getAmount());
+			}
+		}
+	}
 	
 }

@@ -27,8 +27,18 @@ public class ResourceSetter extends Pane{
 		this.resSpec = resSpec;
 		createXml();
 	}
+	
+	/**
+	 * Creates a pane to set a single Resource amount with predefined value
+	 * @param resSpec
+	 */
+	public ResourceSetter(ResourceSpec resSpec, int value){
+		super();
+		this.resSpec = resSpec;
+		createXml(value);
+	}
 
-	private void createXml() {
+	private void createXml(int value) {
 		String fxmlFile = "resourcesetter.fxml";
         FXMLLoader loader = new FXMLLoader();
         URL res = IndustryMain.class.getResource("/"+fxmlFile);
@@ -41,8 +51,13 @@ public class ResourceSetter extends Pane{
 		}
 		controller = loader.getController();
 		controller.setImage(resSpec.getImage());
+		controller.setAmount(value);
 		//TODO: This is a bit bad coding
 		this.getChildren().add(rootLayout);
+	}
+	
+	private void createXml() {
+		createXml(0);
 	}
 	
 	public Resource getResource() {

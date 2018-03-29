@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 
+import game.ItineraryItem;
 import game.Resource;
 import game.Vehicle;
 import game.VehicleSpecs;
@@ -14,7 +15,7 @@ import mainpack.IndustryMain;
 
 public class MenuDialog {
 
-	public static Resource[] showResourceLoadDialog(VehicleSpecs vehicleSpecs) {
+	public static Resource[] showResourceLoadDialog(VehicleSpecs vehicleSpecs, ItineraryItem itinItem) {
 		String fxmlFile = "resourceloaddialog.fxml";
         FXMLLoader loader = new FXMLLoader();
         URL res = IndustryMain.class.getResource("/"+fxmlFile);
@@ -27,6 +28,7 @@ public class MenuDialog {
 		}
 		ResourceLoadController controller = loader.getController();
 		controller.setVehicleSpecs(vehicleSpecs);
+		controller.setItineraryItem(itinItem);
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
 		stage.setScene(scene);

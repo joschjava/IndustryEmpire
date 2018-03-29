@@ -91,7 +91,8 @@ public class VehiclePaneController {
 		
 		btFreight.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
-		        Resource[] res = MenuDialog.showResourceLoadDialog(getSelectedVehicleSpecs());
+		    	ItineraryItem itinItem = itineraryView.getSelectionModel().getSelectedItem();
+		        Resource[] res = MenuDialog.showResourceLoadDialog(getSelectedVehicleSpecs(),itinItem);
 		        getSelectedItineraryItem().setLoad(res);
 		    }
 		});
@@ -109,7 +110,6 @@ public class VehiclePaneController {
     	City city = cityDropDown.getSelectionModel().getSelectedItem();
     	ItineraryItem item = new ItineraryItem(city, null);
     	itinerary.add(item);
-    	itinerary.getItinerary().forEach(System.out::println);
     	//TODO: Make this better!!!
     	shittyUpdateList();
     }

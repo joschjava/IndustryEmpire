@@ -17,7 +17,6 @@ import javafx.scene.text.Text;
 
 public class GuiCity {
 
-	private Circle circle;
 	private Text text;
 	private Pane pane;
 	private City city;
@@ -60,7 +59,7 @@ public class GuiCity {
 		text = new Text(city.getName());
 		text.relocate(0, 30);
 		pane.getChildren().addAll(iv, text);
-		pane.setCursor(Cursor.HAND);
+		pane.setCursor(Cursor.CROSSHAIR);
 	}
 	
 	public void highlight() {

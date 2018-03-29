@@ -59,7 +59,6 @@ public class Itinerary {
 	}
 	
 	public Resource[] getLoad() {
-		
 		return itinerary.get(curPos).getLoad();
 	}
 	

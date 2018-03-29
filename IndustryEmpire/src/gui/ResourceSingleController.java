@@ -91,6 +91,11 @@ public class ResourceSingleController {
 		return chg;
 	}
 	
+	public void setAmount(int value) {
+		System.out.println("Amount: "+value);
+		amount.set(value);
+	}
+	
 	public void setImage(Image image) {
 		resourceImage.setImage(image);
 	}
