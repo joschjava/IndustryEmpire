@@ -2,7 +2,9 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
+import game.City;
 import game.ItineraryItem;
 import game.Resource;
 import game.Vehicle;
@@ -10,6 +12,7 @@ import game.VehicleSpecs;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mainpack.IndustryMain;
 
@@ -36,7 +39,48 @@ public class MenuDialog {
 		return controller.getResources();
 	}
 	
+	public static void showCity(City city) {
+        FXMLLoader loader = new FXMLLoader();
+        URL res = IndustryMain.class.getResource("/citydialog.fxml");
+        loader.setLocation(res);
+        VBox rootLayout = null;
+		try {
+			rootLayout = (VBox) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		CityPaneController controller = loader.getController();
+		controller.setCityName(city);
+		ArrayList<Resource> resources = city.getAllResources();
+		System.out.println(resources.size());
+		resources.forEach((resource)->{
+			controller.addResource(resource);
+		});
+		
+		Scene scene = new Scene(rootLayout);
+		Stage stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(scene);
+		stage.showAndWait();
+	}
 	
+	public static Vehicle showBuyVehicle() {
+        FXMLLoader loader = new FXMLLoader();
+        URL res = IndustryMain.class.getResource("/vehicledialog.fxml");
+        loader.setLocation(res);
+        VBox rootLayout = null;
+		try {
+			rootLayout = (VBox) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		VehiclePaneController controller = loader.getController();
+		Scene scene = new Scene(rootLayout);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.showAndWait();
+		return controller.getVehicle();
+	}
 	
 	
 //	private static <T> T showDialog(String fxmlFile, boolean getController) {

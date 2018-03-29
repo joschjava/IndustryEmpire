@@ -24,7 +24,7 @@ public class IndustryMainTest extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		MenuDialog.showResourceLoadDialog(null);
+//		MenuDialog.showResourceLoadDialog(null);
 //		ResourceSetter resSetter = new ResourceSetter(Resources.GOLD);
 
 //		Scene scene = new Scene(resSetter);
