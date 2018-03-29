@@ -13,10 +13,11 @@ public class Game {
 
     private static long tickTime = 0;
     private static Game game = null;
+    private Player player = new Player();
+    
     
     private Game() {
     	init();
-    	
     }
     
     public static Game getInstance() {
@@ -24,6 +25,10 @@ public class Game {
     		game = new Game();
     	}
     	return game;
+    }
+    
+    public Player getPlayer() {
+    	return player;
     }
     
     private void init(){
@@ -47,6 +52,9 @@ public class Game {
     
     public void tick() {
     	tickTime++;
+    	if(Math.random()<0.4) {
+    		player.chgMoneyValueBy(1000);
+    	}
      	if(tickTime==Long.MAX_VALUE) {
     		System.err.println("Maximum time value reached!");
     	}

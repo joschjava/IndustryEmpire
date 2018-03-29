@@ -48,6 +48,9 @@ public class Const {
 	/** Amount of resource that is added when Shift is held */
 	public static final int RES_AMOUNT_SHIFT = 5;
 	
+	/** Currency symbol for money */
+	public static final String CURRENCY_SYMBOL = "$";
+	
 	
 	/*
 	 * DRIVER LIST 

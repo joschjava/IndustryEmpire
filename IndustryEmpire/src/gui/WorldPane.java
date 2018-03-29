@@ -1,15 +1,22 @@
 package gui;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import game.City;
+import game.Game;
+import game.Player;
 import game.Position;
 import game.Vehicle;
 import javafx.beans.DefaultProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.converter.NumberStringConverter;
 import mainpack.Const;
 
 
@@ -23,6 +30,9 @@ public class WorldPane extends StackPane{
 	/** Contains moving objects like vehicles */
 	private Pane dynamicPane = new Pane();
 	
+	/** Contains descriptions such as money etc that are printed on top of screen */
+	private FlowPane overlay = new FlowPane();
+	
 	public WorldPane(){
 		super();
 		this.setMinWidth(Const.MAPSIZE_X*1.1);
@@ -30,11 +40,24 @@ public class WorldPane extends StackPane{
 
 
 		dynamicPane.setPickOnBounds(false);
-		
+		overlay.setPickOnBounds(false);
+		Label money = new Label();
+		Player player = Game.getInstance().getPlayer();
+		overlay.getChildren().add(money);
+		NumberStringConverter converter = new NumberStringConverter() {
+        	@Override
+        	public String toString(Number value) {
+        	      NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+        	      String formatedValue = numberFormat.format(value.intValue());
+				return String.format(Const.CURRENCY_SYMBOL+" "+formatedValue);
+        	}
+		};
+		money.textProperty().bindBidirectional(player.moneyProperty(), converter);
 		
 		this.getChildren().add(staticPane);
 		this.getChildren().add(dynamicPane);
-	
+		this.getChildren().add(overlay);
+		
 		
 		placeObjects();
 //		this.setCursor();
@@ -42,16 +65,6 @@ public class WorldPane extends StackPane{
 		String image = WorldPane.class.getResource("/mud.png").toExternalForm();
 		this.setStyle("-fx-background-image: url('" + image + "'); " +
 		           "-fx-background-position: center center; ");
-		
-//		File bg = new File("/graphics/mud.png");
-//		BackgroundImage myBI;
-//		ImageView iv = new ImageView(new Image(bg.toURI().toString()));
-//		myBI = new BackgroundImage(new Image(bg.toURI().toString(),32,32,false,true),
-//		        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-//		          new BackgroundSize(500, 500, false, false, false,true));
-		//then you set to your node
-//		this.setBackground(Background.EMPTY);
-//		getChildren().add(iv);
 	}
 	
 
