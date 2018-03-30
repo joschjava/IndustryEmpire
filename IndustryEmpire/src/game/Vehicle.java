@@ -4,8 +4,15 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import gui.GuiVehicle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 import mainpack.Functions;
 import objects.ResourceList;
 
@@ -17,7 +24,6 @@ public class Vehicle extends Position implements  TickListener{
 	/** Destinations to drive to with in and output */
 	Itinerary itinerary = null;
 	private double distToLocation = 0; 
-	private Point position;
 	private int id = -1;
 	private static int idCounter = 0;
 	private VehicleSpecs specs;
@@ -26,12 +32,16 @@ public class Vehicle extends Position implements  TickListener{
 	private double difY;
 	private GuiVehicle guiObject;
 	private IntegerProperty status = new SimpleIntegerProperty(LOADING);
-	
+	private DoubleProperty x = new SimpleDoubleProperty();
+	private DoubleProperty y = new SimpleDoubleProperty();
+	public Timeline driveTimeline = new Timeline();
 	
 	public static final int DRIVING = 0;
 	public static final int UNLOADING = 1;
 	public static final int LOADING = 2;
 	public static final int IDLE = 3;
+	
+	
 	
 	public Vehicle(VehicleSpecs specs, City city){
 		super();
@@ -47,33 +57,48 @@ public class Vehicle extends Position implements  TickListener{
 	
 	@Override
 	public double getX() {
-		return position.getX();
+		return x.get();
 	}
 
 	@Override
 	public double getY() {
-		return position.getY();
+		return y.get();
 	}
 	
-	public Point getPosition() {
-		return position;
+	public void setX(double x) {
+		this.x.set(x);
 	}
 	
+	public void setY(double y) {
+		this.y.set(y);
+	}
+	
+	public DoubleProperty xProperty() {
+		return x;
+	}
+	
+	public DoubleProperty yProperty() {
+		return y;
+	}
+	
+	/** @deprecated */
 	private void changePositionBy(double x, double y, double angleRad) {
-		position.setLocation(getX()+x, getY()+y);
+		setX(getX()+x);
+		setY(getY()+y);
 		updateGuiPosition(angleRad);
 	}
 	
 	public void setLocation(City city) {
 		curCity = city;
 		city.addVehicle(this);
-		position = city.getPositionClone();
+		x.set(city.getX());
+		y.set(city.getY());
 		updateGuiPosition(0);
 	}
 
 	private void updateGuiPosition(double angleDeg) {
 		if(guiObject != null) {
-			guiObject.updatePosition(position, angleDeg);
+//			guiObject.updatePosition(position, angleDeg);
 		}
 	}
 	
@@ -110,7 +135,34 @@ public class Vehicle extends Position implements  TickListener{
 			status.set(UNLOADING);
 		}
 	}
+	
+	private void driveTest() {
+		if(driveTimeline.getStatus() == Animation.Status.STOPPED) {
+			distToLocation = Functions.getDistance(this,curCity);
+			int timeNeeded = (int) Math.ceil(distToLocation / (double) specs.getSpeed() * Game.tickInterval);
 
+	        KeyValue keyValueX = new KeyValue(xProperty(), curCity.getX());
+	        KeyValue keyValueY = new KeyValue(yProperty(), curCity.getY());
+	        System.out.println(xProperty().get() + ":" + yProperty());
+	        
+			driveTimeline =   new Timeline(
+					new KeyFrame(Duration.millis(0)),
+					new KeyFrame(Duration.millis(timeNeeded), keyValueX, keyValueY)
+					);
+			driveTimeline.setOnFinished(e -> arriveInCity());
+			driveTimeline.play();
+		}
+	}
+
+	private void arriveInCity() {
+//		driveTimeline.stop();
+		System.out.println("Vehicle "+id+" arrived in "+curCity);
+		//Arrived
+		setLocation(curCity);
+		status.set(UNLOADING);
+		Game.getInstance().addListener(this);
+	}
+	
 	/**
 	 * Calculates angle from x and y, <b>Adds 360 to indicate that image needs to flipped</b>
 	 * @param x
@@ -206,7 +258,7 @@ public class Vehicle extends Position implements  TickListener{
 	public void onTick() {
 		switch(status.intValue()) {
 			case DRIVING:
-				drive();
+				driveTest();
 				break;
 				
 			case UNLOADING:

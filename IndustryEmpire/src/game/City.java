@@ -1,12 +1,9 @@
 package game;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 import org.apache.commons.lang3.RandomUtils;
 
-import javafx.beans.Observable;
-import javafx.util.Callback;
 import mainpack.Const;
 import objects.HistoryObject;
 import objects.ResourceList;
@@ -17,7 +14,9 @@ public class City extends Position{
 	private String name;
 	
 	/** Position of city */
-	private Point position;
+	private int x;
+	private int y;
+	
 	
 	/** List of buildings in this city */
 	ArrayList<Building> buildings = new ArrayList<Building>();
@@ -68,7 +67,8 @@ public class City extends Position{
 	}
 	
 	private void init(String name, int x, int y) {
-		position = new Point(x,y);
+		this.x = x;
+		this.y = y;
 		this.name = name;
 		cityList.add(this);
 	}
@@ -86,8 +86,12 @@ public class City extends Position{
 		}
 	}
 	
-	public Point getPositionClone() {
-		return new Point(position);
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
 	}
 	
 	void addBuilding(Building building) {
@@ -163,15 +167,6 @@ public class City extends Position{
 	
 	public ArrayList<Resource> getAllResources() {
 		return resources.getAllResources();
-	}
-	
-	public double getX() {
-		
-		return position.getX();
-	}
-	
-	public double getY() {
-		return position.getY();
 	}
 	
 	public void addVehicle(Vehicle vehicle) {

@@ -55,7 +55,7 @@ public class IndustryMain extends Application {
         Itinerary itinerary = new Itinerary();
         Resource[] input = {new Resource(Resources.WOOD,20)};
         ItineraryItem item = new ItineraryItem(essen, input);
-        item.setWaitForFull(true);
+//        item.setWaitForFull(true);
 		itinerary.add(item);
         itinerary.add(new ItineraryItem(bonn, null));
         itinerary.add(new ItineraryItem(newtown, null));
@@ -90,7 +90,7 @@ public class IndustryMain extends Application {
 			
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
-		Game.getInstance().start();
+//		Game.getInstance().start(2000);
 		primaryStage.show();
 
 		

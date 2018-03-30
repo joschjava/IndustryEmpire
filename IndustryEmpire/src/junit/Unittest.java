@@ -39,7 +39,7 @@ class Unittest {
 	/**
 	 * Creates two cities on X axis and lets car drive from one to another
 	 */
-	@Disabled @Test
+	@Test
 	void driveTest() {
 		Game game = Game.getInstance();
 		City essen = new City("Essen", 0, 400);
@@ -170,7 +170,7 @@ class Unittest {
 		}
 	}
 	
-	 @Test
+	@Disabled @Test
 	void multipleLoadTest() {
 		City essen = new City("Essen");
 		double amount = 20.0;

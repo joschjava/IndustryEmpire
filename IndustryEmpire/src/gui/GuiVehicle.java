@@ -6,8 +6,11 @@ import java.io.File;
 import game.Vehicle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -51,20 +54,33 @@ public class GuiVehicle {
 		iv = new ImageView();
 		iv.setImage(image);
 		iv.relocate(0,0);
+		Label lb = new Label();
+		
+		//Attach guiVehicle to guiVehicle Position
+		pane.layoutXProperty().bind(vehicle.xProperty());
+		pane.layoutYProperty().bind(vehicle.yProperty());
+		
+		vehicle.yProperty().addListener((observable, oldvalue, newValue)->{
+			lb.setText(String.format("%.2f %.2f", vehicle.xProperty().get(),vehicle.yProperty().get()));
+		});
 		
 		//Let vehicle disappear when in city
-		BooleanBinding vehicleDriving = Bindings.when(vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)).then(true).otherwise(false);
-		iv.visibleProperty().bind(vehicleDriving);
-		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
-//		iv.visibleProperty()
-//		text = new Text(vehicle.toString());
-//		text.relocate(0, iv.getLayoutY()-20);
+//		BooleanBinding vehicleDriving = Bindings.when(vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)).then(true).otherwise(false);
+//		iv.visibleProperty().bind(vehicleDriving);
+//		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
+
 		pane.getChildren().add(iv);
+		pane.getChildren().add(lb);
 		vehicle.setObserver(this);
-		updatePosition(vehicle.getPosition(),0);
+//		updatePosition(vehicle.getPosition(),0);
 	}
 	
 	// CHANGE TO X Y AND PROPERTY LISTENER
+	/**
+	 * @deprecated
+	 * @param p
+	 * @param angleDeg
+	 */
 	public void updatePosition(Point p, double angleDeg) {
 		pane.relocate(p.getX(), p.getY());
 //		text.setText(vehicle.toString());
