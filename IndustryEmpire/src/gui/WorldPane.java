@@ -9,13 +9,15 @@ import game.Game;
 import game.Player;
 import game.Position;
 import game.Vehicle;
+import gui.objects.DateLabel;
 import javafx.beans.DefaultProperty;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import mainpack.Const;
 
@@ -31,7 +33,7 @@ public class WorldPane extends StackPane{
 	private Pane dynamicPane = new Pane();
 	
 	/** Contains descriptions such as money etc that are printed on top of screen */
-	private FlowPane overlay = new FlowPane();
+	private VBox overlay = new VBox();
 	
 	public WorldPane(){
 		super();
@@ -41,18 +43,30 @@ public class WorldPane extends StackPane{
 
 		dynamicPane.setPickOnBounds(false);
 		overlay.setPickOnBounds(false);
+		overlay.setPadding(new Insets(10));
+
 		Label money = new Label();
+		DateLabel date = new DateLabel();
 		Player player = Game.getInstance().getPlayer();
 		overlay.getChildren().add(money);
-		NumberStringConverter converter = new NumberStringConverter() {
-        	@Override
-        	public String toString(Number value) {
-        	      NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
-        	      String formatedValue = numberFormat.format(value.intValue());
+		overlay.getChildren().add(date);
+		money.setStyle("-fx-background-color: #FFFFFF");
+		date.setStyle("-fx-background-color: #FFFFFF");
+		NumberStringConverter moneyConverter = new NumberStringConverter() {
+			
+			@Override
+			public String toString(Number value) {
+				NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+				String formatedValue = numberFormat.format(value.intValue());
 				return String.format(Const.CURRENCY_SYMBOL+" "+formatedValue);
-        	}
+			}
 		};
-		money.textProperty().bindBidirectional(player.moneyProperty(), converter);
+		
+
+		
+		
+		money.textProperty().bindBidirectional(player.moneyProperty(), moneyConverter);
+		
 		
 		this.getChildren().add(staticPane);
 		this.getChildren().add(dynamicPane);

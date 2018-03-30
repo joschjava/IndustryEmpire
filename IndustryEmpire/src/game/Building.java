@@ -110,5 +110,11 @@ public class Building implements TickListener{
 		}
 		return outputStr.toString();
 	}
+
+	@Override
+	public void onChgDate(long ticks) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

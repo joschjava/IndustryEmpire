@@ -33,7 +33,7 @@ class Unittest {
 
 	@AfterEach
 	void setup() {
-		Game.resetGame();
+		Game.getInstance().resetGame();
 	}
 	
 	/**

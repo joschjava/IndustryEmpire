@@ -2,7 +2,6 @@ package game;
 
 import java.util.ArrayList;
 
-import gui.GuiVehicle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -250,6 +249,12 @@ public class Vehicle extends Position implements  TickListener{
 				driveToNextItineraryItem();	
 				break;
 		}
+	}
+
+	@Override
+	public void onChgDate(long ticks) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

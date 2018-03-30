@@ -106,5 +106,10 @@ public class DriverList extends Application implements TickListener{
 	public void onTick() {
 		modifyDrivers();
 	}
+
+	@Override
+	public void onChgDate(long ticks) {
+		
+	}
 	
 }

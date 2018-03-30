@@ -5,13 +5,15 @@ import java.util.List;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.util.Duration;
 import mainpack.Const;
 
 public class Game {
     private List<TickListener> tickListener = new ArrayList<TickListener>();
 
-    private static long tickTime = 0;
+    private static LongProperty tickTime = new SimpleLongProperty(0);
     private static Game game = null;
     private Player player = new Player();
     public static int tickInterval = Const.STD_TICK_INTERVAL;
@@ -60,24 +62,25 @@ public class Game {
 //    }
     
     public static long getTick() {
+    	return tickTime.get();
+    }
+    
+    public static LongProperty tickProperty() {
     	return tickTime;
     }
     
     public void ticknLog() {
-    	System.out.println(tickTime+1);
+    	System.out.println(tickTime.get()+1);
     	tick();
     }
     
     public void tick() {
-    	tickTime++;
-   		player.chgMoneyValueBy(1);
-     	if(tickTime==Long.MAX_VALUE) {
+    	tickTime.set(tickTime.get()+1);
+     	if(tickTime.get()==Long.MAX_VALUE) {
     		System.err.println("Maximum time value reached!");
     	}
     	
-        for (TickListener hl : tickListener) {
-            hl.onTick();
-        }
+     	tickListener.forEach( tl -> tl.onTick());
     }
     
     /**
@@ -99,7 +102,7 @@ public class Game {
     	ticker.play();
     }
     
-    public static void resetGame() {
+    public void resetGame() {
     	game = null;
     	System.out.println("Game resetted");
     }
