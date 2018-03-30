@@ -16,9 +16,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
+import gui.objects.ListCellItineraryItem;
 
 
 
@@ -88,6 +91,16 @@ public class VehiclePaneController {
 				closeStageFromEvent(e);
 			}
 		});
+		
+        itineraryView.setCellFactory(new Callback<ListView<ItineraryItem>, 
+                ListCell<ItineraryItem>>() {
+
+    				@Override
+    				public ListCell<ItineraryItem> call(ListView<ItineraryItem> item) {
+    					return new ListCellItineraryItem();
+    				}
+                }
+            );
 		
 		btFreight.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {

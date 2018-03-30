@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import mainpack.IndustryMain;
 
 public class MenuDialog {
@@ -60,6 +61,7 @@ public class MenuDialog {
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
+//		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.showAndWait();
 	}
@@ -77,6 +79,7 @@ public class MenuDialog {
 		VehiclePaneController controller = loader.getController();
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.showAndWait();
 		return controller.getVehicle();
