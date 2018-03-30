@@ -60,19 +60,18 @@ public class GuiVehicle {
 		pane.layoutXProperty().bind(vehicle.xProperty());
 		pane.layoutYProperty().bind(vehicle.yProperty());
 		
-		vehicle.yProperty().addListener((observable, oldvalue, newValue)->{
-			lb.setText(String.format("%.2f %.2f", vehicle.xProperty().get(),vehicle.yProperty().get()));
+		//Let vehicle disappear when in city
+		BooleanBinding vehicleDriving = Bindings.when(vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)).then(true).otherwise(false);
+		iv.visibleProperty().bind(vehicleDriving);
+		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
+
+		//Update Rotation of vehicle
+		vehicle.angleProperty().addListener((observable, oldvalue, newValue)->{
+			updateRotation(newValue.doubleValue());
 		});
 		
-		//Let vehicle disappear when in city
-//		BooleanBinding vehicleDriving = Bindings.when(vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)).then(true).otherwise(false);
-//		iv.visibleProperty().bind(vehicleDriving);
-//		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
-
 		pane.getChildren().add(iv);
 		pane.getChildren().add(lb);
-		vehicle.setObserver(this);
-//		updatePosition(vehicle.getPosition(),0);
 	}
 	
 	// CHANGE TO X Y AND PROPERTY LISTENER
@@ -84,6 +83,16 @@ public class GuiVehicle {
 	public void updatePosition(Point p, double angleDeg) {
 		pane.relocate(p.getX(), p.getY());
 //		text.setText(vehicle.toString());
+		if(angleDeg>180) {
+			angleDeg -= 360;
+			setFlippedVehicle(true);
+		} else {
+			setFlippedVehicle(false);
+		}
+		iv.setRotate(angleDeg);
+	}
+	
+	private void updateRotation(double angleDeg) {
 		if(angleDeg>180) {
 			angleDeg -= 360;
 			setFlippedVehicle(true);
