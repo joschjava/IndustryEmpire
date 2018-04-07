@@ -17,7 +17,8 @@ public class Game {
     private static Game game = null;
     private Player player = new Player();
     public static int tickInterval = Const.STD_TICK_INTERVAL;
-
+//    public static long lastTime = 0;
+    
 	private static Timeline ticker;
     
     private Game() {
@@ -39,6 +40,10 @@ public class Game {
 //    	new Buildings();
     	Buildings.init();
     	new Vehicles();
+    }
+    
+    public static void setTickInterval(int tickInterval) {
+    	Game.tickInterval = tickInterval;
     }
     
     public void addListener(TickListener toAdd) {
@@ -75,6 +80,10 @@ public class Game {
     }
     
     public void tick() {
+//    	long now = System.currentTimeMillis();
+//    	System.out.println(now-lastTime);
+//    	lastTime = now;
+    	
     	tickTime.set(tickTime.get()+1);
      	if(tickTime.get()==Long.MAX_VALUE) {
     		System.err.println("Maximum time value reached!");
@@ -94,6 +103,7 @@ public class Game {
      * Starts the game ticker with a specified interval for each tick in ms
      */
     public void start(int intervalTime) {
+    	tickInterval = intervalTime;
     	ticker = new Timeline(
 				new KeyFrame(Duration.millis(0), ae -> tick()),
 				new KeyFrame(new Duration(intervalTime))

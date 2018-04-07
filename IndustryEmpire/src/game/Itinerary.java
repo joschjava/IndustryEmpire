@@ -3,11 +3,14 @@ package game;
 import java.util.ArrayList;
 
 import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.util.Callback;
 
 public class Itinerary {
 
 	private ArrayList<ItineraryItem> itinerary = new ArrayList<ItineraryItem>();
+	private ObservableList<ItineraryItem> observableList;
 	private boolean loop = true;
 	private int curPos = 0;
 	
@@ -15,6 +18,7 @@ public class Itinerary {
 	 * @param itineraryView
 	 */
 	public Itinerary() {
+	    observableList = FXCollections.observableList(itinerary);
 	}
 	
 	/**
@@ -25,11 +29,11 @@ public class Itinerary {
 	}
 	
 	public void add(ItineraryItem item) {
-		itinerary.add(item);
+		observableList.add(item);
 	}
 	
 	public void remove(ItineraryItem item) {
-		itinerary.remove(item);
+		observableList.remove(item);
 	}
 	
 	/**
@@ -79,12 +83,20 @@ public class Itinerary {
 		return itinerary;
 	}
 
+	public ObservableList<ItineraryItem> getObservableItinerary(){
+		return observableList;
+	}
+	
 	public boolean getWaitForFull() {
 		return itinerary.get(curPos).getWaitForFull();
 	}
 	
 	public boolean isLoop() {
 		return loop;
+	}
+
+	public boolean isEmpty() {
+		return itinerary.isEmpty();
 	}
 	
 //    public static Callback<Driver, Observable[]> extractor() {

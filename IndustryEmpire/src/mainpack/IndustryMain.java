@@ -68,7 +68,7 @@ public class IndustryMain extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Game.getInstance().start();
+		
 		
 //		City essen = new City("Essen");
 //		new Building(Buildings.SUPER_RES_FACTORY, essen);
@@ -92,7 +92,7 @@ public class IndustryMain extends Application {
 		primaryStage.setScene(scene);
 //		Game.getInstance().start(2000);
 		primaryStage.show();
-
+		Game.getInstance().start();
 		
 	}
 

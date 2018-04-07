@@ -183,7 +183,7 @@ public class Vehicle extends Position implements  TickListener{
 		if(input != null) { 
 			for(Resource res: input) {
 				//TODO: This takes a lot of resources, dude!
-				//Create static resource?
+				//Create static resource class?
 				Resource leftRes = res.getCopy();
 				Resource vehicleRes = load.getElementByResSpec(leftRes.getSpec());
 				double leftAmount = res.getAmount()-vehicleRes.getAmount();

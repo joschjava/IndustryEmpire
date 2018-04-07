@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
@@ -119,20 +120,30 @@ public class VehiclePaneController {
     private void add() {
     	if(itinerary == null) {
     		itinerary = new Itinerary();
+    	    itineraryView.setItems(itinerary.getObservableItinerary());
     	}
     	City city = cityDropDown.getSelectionModel().getSelectedItem();
     	ItineraryItem item = new ItineraryItem(city, null);
     	itinerary.add(item);
+		itineraryView.getSelectionModel().selectLast();
+		itineraryView.requestFocus();
     	//TODO: Make this better!!!
-    	shittyUpdateList();
+//    	shittyUpdateList();
     }
 
     private void remove() {
     	if(itinerary != null) {
-    		ItineraryItem item = itineraryView.getSelectionModel().getSelectedItem();
+    		MultipleSelectionModel<ItineraryItem> selectionModel = itineraryView.getSelectionModel();
+			ItineraryItem item = selectionModel.getSelectedItem();
+    		int prevIndex = selectionModel.getSelectedIndex();
     		itinerary.remove(item);
+    		int newSize = itinerary.getObservableItinerary().size();
+    		if(newSize > 0 && newSize != prevIndex) {
+    			selectionModel.select(prevIndex);
+    		}
+    		itineraryView.requestFocus();
     	}
-    	shittyUpdateList();
+//    	shittyUpdateList();
     }
     
     private ItineraryItem getSelectedItineraryItem() {
