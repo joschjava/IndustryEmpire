@@ -127,8 +127,6 @@ public class VehiclePaneController {
     	itinerary.add(item);
 		itineraryView.getSelectionModel().selectLast();
 		itineraryView.requestFocus();
-    	//TODO: Make this better!!!
-//    	shittyUpdateList();
     }
 
     private void remove() {
@@ -143,7 +141,6 @@ public class VehiclePaneController {
     		}
     		itineraryView.requestFocus();
     	}
-//    	shittyUpdateList();
     }
     
     private ItineraryItem getSelectedItineraryItem() {
@@ -173,18 +170,5 @@ public class VehiclePaneController {
         	onCloseRequest.handle(null);
         }
         stage.close();
-    }
-    
-	//TODO: Make this better!!!
-    /**
-     * @deprecated Bad Coding!!
-     */
-    private void shittyUpdateList() {
-		ArrayList<ItineraryItem> itineraryList = itinerary.getItinerary();
-		ObservableList<ItineraryItem> itineraryObserv = FXCollections.observableArrayList(itineraryList);
-		itineraryView.setItems(itineraryObserv);
-		if(itineraryList.size() == 1) {
-			itineraryView.getSelectionModel().select(0);
-		}
     }
 }
