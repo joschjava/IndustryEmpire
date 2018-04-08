@@ -44,12 +44,13 @@ public class IndustryMain extends Application {
 		
 		Game.getInstance();
 		City essen = new City("Essen");
+		essen.setResourceAmount(Resources.WOOD, 20);
 		City berlin = new City("Berlin");
 		City frankfurt = new City("Frankfurt");
 		City bonn = new City("Bonn");
 		City newtown = new City("Newtown");
 		new Buildings();
-		new Building(Buildings.WOOD_FACTORY, essen);
+//		new Building(Buildings.WOOD_FACTORY, essen);
 		new Building(Buildings.BOOK_FACTORY, frankfurt);
 		Vehicle karl = new Vehicle(new VehicleSpecs(5,20), essen);
         Itinerary itinerary = new Itinerary();

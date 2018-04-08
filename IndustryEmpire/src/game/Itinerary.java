@@ -52,6 +52,12 @@ public class Itinerary {
     		    });
 	}
 
+	
+	/**
+	 * Sets next destination
+	 * @return <b>true</b> if destination exists 
+	 * <br><b>false</b> if vehicle reached the end of itinerary and loop is deactivated
+	 */
 	public boolean setNextDestination() {
 		if(curPos.get()+1 >= itinerary.size()) {
 			if(loop) {

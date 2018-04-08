@@ -107,6 +107,13 @@ public class Vehicle extends Position implements  TickListener{
 		}
 	}
 	
+	public void interruptDriving() {
+		driveTimeline.stop();
+		curCity = itinerary.getDestination();	
+		status.set(DRIVING);
+		System.out.println("Itinerary changed while driving, Vehicle "+id+" drives to "+curCity);
+	}
+	
 	public IntegerProperty statusProperty() {
 		return status;
 	}
@@ -120,7 +127,7 @@ public class Vehicle extends Position implements  TickListener{
 			angle.set(getAngleDeg(difX, difY));
 	        KeyValue keyValueX = new KeyValue(xProperty(), curCity.getX());
 	        KeyValue keyValueY = new KeyValue(yProperty(), curCity.getY());
-	        System.out.println(xProperty().get() + ":" + yProperty());
+//	        System.out.println(xProperty().get() + ":" + yProperty());
 	        
 			driveTimeline =   new Timeline(
 					new KeyFrame(Duration.millis(0)),
@@ -223,6 +230,11 @@ public class Vehicle extends Position implements  TickListener{
 	
 	public void setItinerary(Itinerary itinerary) {
 		this.itinerary = itinerary;
+		itinerary.curPosProperty().addListener((observable, oldValue, newValue)->{
+			if(status.get() == DRIVING) {
+				interruptDriving();
+			}
+		});
 	}
 
 	public Itinerary getItinerary() {
