@@ -82,7 +82,7 @@ public class MenuDialog {
 		}
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
-		stage.initStyle(StageStyle.UNDECORATED);
+//		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.showAndWait();
 		return controller.getVehicle();

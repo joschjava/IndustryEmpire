@@ -43,14 +43,21 @@ public class ListCellItineraryItem extends ListCell<ItineraryItem> {
 		         setGraphic(null);
 		     } else if(item != null) {
 //		    	 lb.textFillProperty().bind(Bindings.when(item.nextDestinationProperty()).then(Color.ORANGE));
-		    	 item.nextDestinationProperty().addListener(
-		    			 (observable, oldvalue, newValue) ->{
-		    				 setHighlightAsNextDestination(newValue);
-    		    });
+
 		    	cellContainer = new VBox();
 				initCityLabel(item);
 				initResources(item);
 				setGraphic(cellContainer);
+//		    	 setHighlightAsNextDestination(item.nextDestinationProperty().get());
+//		    	 item.nextDestinationProperty().addListener(
+//		    			 (observable, oldvalue, newValue) ->{
+//		    				 setHighlightAsNextDestination(newValue);
+//   		    });
+//		    	 lb.textFillProperty().bind(Bindings.when(item.nextDestinationProperty()).then(Color.ORANGE));
+		    	 lb.textFillProperty().bind(
+		    			 Bindings.when(item.nextDestinationProperty())
+		    			.then(Color.ORANGE).otherwise(Color.BLACK)
+		    			);
 			}
 		}
 
