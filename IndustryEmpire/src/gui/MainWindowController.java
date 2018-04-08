@@ -19,7 +19,7 @@ public class MainWindowController {
     public void initialize() {
     	btBuyVehicle.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				Vehicle vehicle = MenuDialog.showBuyVehicle();
+				Vehicle vehicle = MenuDialog.showBuyVehicle(null);
 				if(vehicle != null) {
 					worldPane.addNewVehicle(vehicle);
 				}

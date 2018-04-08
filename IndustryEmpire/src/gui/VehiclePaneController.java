@@ -1,5 +1,7 @@
 package gui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import game.City;
@@ -8,6 +10,7 @@ import game.ItineraryItem;
 import game.Resource;
 import game.Vehicle;
 import game.VehicleSpecs;
+import gui.objects.ListCellItineraryItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +25,6 @@ import javafx.scene.control.MultipleSelectionModel;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
-import gui.objects.ListCellItineraryItem;
 
 
 
@@ -44,7 +46,7 @@ public class VehiclePaneController {
 	public Button btDelete;
 	
 	@FXML
-	public Button btBuy;
+	public Button btBuySubmit;
 	
 	@FXML
 	public Button btCancel;
@@ -55,6 +57,11 @@ public class VehiclePaneController {
 	private Itinerary itinerary = null;
 
 	private Vehicle vehicle;
+	
+	private static final int NEW = 0;
+	private static final int EDIT = 1;
+	
+	private int function = NEW;
 	
     @FXML
     public void initialize() {
@@ -79,9 +86,21 @@ public class VehiclePaneController {
 			}
 		});
 		
-		btBuy.setOnAction(new EventHandler<ActionEvent>() {
+		btBuySubmit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				buy();
+				switch(function) {
+				case NEW:
+					buy();
+					break;
+					
+				case EDIT:
+					submitChange();
+					break;
+					
+				default:
+					System.err.println("Unknown function in VehiclePane: "+function);
+				}
+				
 				closeStageFromEvent(e);
 			}
 		});
@@ -102,7 +121,7 @@ public class VehiclePaneController {
     				}
                 }
             );
-		
+        
 		btFreight.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 		    	ItineraryItem itinItem = itineraryView.getSelectionModel().getSelectedItem();
@@ -113,8 +132,21 @@ public class VehiclePaneController {
 
     }
 	
+    public void loadVehicle(Vehicle vehicle) {
+    	this.vehicle = vehicle;
+    	itinerary = vehicle.getItinerary();
+    	btBuySubmit.setText("Submit");
+    	function = EDIT;
+    	vehicles.setDisable(true);
+    	fillList();
+    }
+    
     private VehicleSpecs getSelectedVehicleSpecs() {
     	return vehicles.getSelectionModel().getSelectedItem();
+    }
+    
+    private void fillList() {
+	    itineraryView.setItems(itinerary.getObservableItinerary());
     }
     
     private void add() {
@@ -152,6 +184,10 @@ public class VehiclePaneController {
     	City cityStart = itinerary.getItinerary().get(0).getDestination();
     	vehicle = new Vehicle(specs, cityStart);
     	vehicle.setItinerary(itinerary);
+    }
+    
+    private void submitChange() {
+    	
     }
     
     private void cancel() {

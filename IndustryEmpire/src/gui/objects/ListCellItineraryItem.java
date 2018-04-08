@@ -5,6 +5,7 @@ import java.io.File;
 import game.ItineraryItem;
 import game.Resource;
 import gui.WorldPane;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import mainpack.Const;
 
@@ -40,6 +42,11 @@ public class ListCellItineraryItem extends ListCell<ItineraryItem> {
 		         setText(null);
 		         setGraphic(null);
 		     } else if(item != null) {
+//		    	 lb.textFillProperty().bind(Bindings.when(item.nextDestinationProperty()).then(Color.ORANGE));
+		    	 item.nextDestinationProperty().addListener(
+		    			 (observable, oldvalue, newValue) ->{
+		    				 setHighlightAsNextDestination(newValue);
+    		    });
 		    	cellContainer = new VBox();
 				initCityLabel(item);
 				initResources(item);
@@ -47,6 +54,14 @@ public class ListCellItineraryItem extends ListCell<ItineraryItem> {
 			}
 		}
 
+		public void setHighlightAsNextDestination(boolean highlight) {
+		    	if(highlight) {
+		    		lb.setTextFill(Color.ORANGE);
+		    	} else {
+		    		lb.setTextFill(Color.BLACK);
+		    	}
+		}
+		
 		private void initCityLabel(ItineraryItem item) {
 			lb = new Label(item.getDestination().getName());
 			lb.setFont(font);

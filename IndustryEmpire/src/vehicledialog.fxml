@@ -18,7 +18,7 @@
       <ListView fx:id="itineraryView" prefHeight="200.0" prefWidth="200.0" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btBuy" mnemonicParsing="false" text="Buy" />
+            <Button fx:id="btBuySubmit" mnemonicParsing="false" text="Buy" />
             <Button fx:id="btCancel" mnemonicParsing="false" text="Cancel" />
             <Button fx:id="btFreight" mnemonicParsing="false" text="Set Freight" />
          </children>

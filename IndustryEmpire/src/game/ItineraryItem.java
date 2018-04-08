@@ -2,10 +2,17 @@ package game;
 
 import java.util.Arrays;
 
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.util.Callback;
+
 public class ItineraryItem {
 	private City destination;
 	private Resource[] load;
 	private boolean waitForFull = false;	
+	public BooleanProperty update = new SimpleBooleanProperty(false);
+	private BooleanProperty nextDestination = new SimpleBooleanProperty(false);
 	
 	
 	/**
@@ -29,6 +36,15 @@ public class ItineraryItem {
 		this.waitForFull = waitForFull;
 	}
 	
+	//TODO: Solve this!
+	public static Callback<ItineraryItem, Observable[]> extractor() {
+        return (ItineraryItem i) -> new Observable[] {
+        		i.update
+//                i.nameProperty(),
+//                i.categoryProperty(),
+        };
+}
+	
 	public void setWaitForFull(boolean waitForFull) {
 		this.waitForFull = waitForFull;
 	}
@@ -37,7 +53,13 @@ public class ItineraryItem {
 		return destination;
 	}
 
+	public void setNextDestination(boolean nextDestination) {
+		this.nextDestination.set(nextDestination);
+	}
 	
+	public BooleanProperty nextDestinationProperty() {
+		return nextDestination;
+	}
 	
 	public boolean getWaitForFull() {
 		return waitForFull;
@@ -48,6 +70,7 @@ public class ItineraryItem {
 	}
 	
 	public void setLoad(Resource[] load) {
+//		update.set(true);
 		this.load = load;
 	}
 

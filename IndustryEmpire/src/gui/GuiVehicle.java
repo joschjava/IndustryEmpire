@@ -45,6 +45,19 @@ public class GuiVehicle {
                unhighlight();
             }
         });
+        
+        pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+            	int prevCity = vehicle.getCity().hashCode();
+               MenuDialog.showBuyVehicle(vehicle);
+//               int newCity = vehicle.getCity().hashCode();
+//               if(prevCity != newCity) {
+//            	   
+//               }
+            }
+        });
+        
         pane.setCursor(Cursor.OPEN_HAND);
         
 		File file = new File("graphics/truck.png");

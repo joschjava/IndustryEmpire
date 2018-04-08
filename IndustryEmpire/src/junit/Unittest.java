@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
@@ -31,15 +32,16 @@ import objects.ResourceList;
 @RunWith(JUnitPlatform.class)
 class Unittest {
 
-	@AfterEach
+	@BeforeEach
 	void setup() {
 		Game.getInstance().resetGame();
+		Game.setTickInterval(1);
 	}
 	
 	/**
 	 * Creates two cities on X axis and lets car drive from one to another
 	 */
-	@Test
+	@Disabled @Test
 	void driveTest() {
 		Game game = Game.getInstance();
 		City essen = new City("Essen", 0, 400);
@@ -170,7 +172,7 @@ class Unittest {
 		}
 	}
 	
-	@Disabled @Test
+	@Test
 	void multipleLoadTest() {
 		City essen = new City("Essen");
 		double amount = 20.0;
@@ -332,9 +334,9 @@ class Unittest {
     
         for (int i = 0; i < 150; i++) {
 			game.tick();
-			essen.printResources();
-	        berlin.printResources();
-	        karl.printLoad();
+//			essen.printResources();
+//	        berlin.printResources();
+//	        karl.printLoad();
 	        System.out.println("_______________________________");
 		}
         

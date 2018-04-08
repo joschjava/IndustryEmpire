@@ -66,7 +66,7 @@ public class MenuDialog {
 		stage.showAndWait();
 	}
 	
-	public static Vehicle showBuyVehicle() {
+	public static Vehicle showBuyVehicle(Vehicle vehicle) {
         FXMLLoader loader = new FXMLLoader();
         URL res = IndustryMain.class.getResource("/vehicledialog.fxml");
         loader.setLocation(res);
@@ -77,6 +77,9 @@ public class MenuDialog {
 			e.printStackTrace();
 		}
 		VehiclePaneController controller = loader.getController();
+		if(vehicle != null) {
+			controller.loadVehicle(vehicle);
+		}
 		Scene scene = new Scene(rootLayout);
 		Stage stage = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);

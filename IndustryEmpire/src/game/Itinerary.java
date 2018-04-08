@@ -2,23 +2,23 @@ package game;
 
 import java.util.ArrayList;
 
-import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Callback;
 
 public class Itinerary {
 
 	private ArrayList<ItineraryItem> itinerary = new ArrayList<ItineraryItem>();
 	private ObservableList<ItineraryItem> observableList;
 	private boolean loop = true;
-	private int curPos = 0;
+	private IntegerProperty curPos = new SimpleIntegerProperty();
 	
 	/**
 	 * @param itineraryView
 	 */
 	public Itinerary() {
-	    observableList = FXCollections.observableList(itinerary);
+	    this(new ArrayList<ItineraryItem>(),true);
 	}
 	
 	/**
@@ -42,37 +42,49 @@ public class Itinerary {
 	public Itinerary(ArrayList<ItineraryItem> itinerary, boolean loop) {
 		this.itinerary = itinerary;
 		this.loop = loop;
+		observableList = FXCollections.observableList(itinerary);
+		curPos.addListener(    		   
+				(observable, oldvalue, newValue) ->{
+    		    	itinerary.forEach((itinItem)->{
+    		    		itinItem.setNextDestination(false);
+    		    	});
+    		    	itinerary.get(newValue.intValue()).setNextDestination(true);
+    		    });
 	}
 
 	public boolean setNextDestination() {
-		if(curPos+1 >= itinerary.size()) {
+		if(curPos.get()+1 >= itinerary.size()) {
 			if(loop) {
-				curPos = 0;
+				curPos.set(0);
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			curPos++;
+			curPos.set(curPos.get()+1);
 			return true;
 		}
 	}
 	
 	public City getDestination() {
-		return itinerary.get(curPos).getDestination();
+		return itinerary.get(curPos.get()).getDestination();
 	}
 	
 	public Resource[] getLoad() {
-		return itinerary.get(curPos).getLoad();
+		return itinerary.get(curPos.get()).getLoad();
 	}
 	
 	public void setPos(int pos) {
 		
 //		if(0 <= pos && pos < itinerary.size()) {
-			curPos = pos;
+			curPos.set(pos);
 //		} else {
 //			System.err.println("Invalid itineraryPosition: "+pos);
 //		}
+	}
+	
+	public IntegerProperty curPosProperty() {
+		return curPos;
 	}
 	
 	public void setLoop(boolean loop) {
@@ -88,7 +100,7 @@ public class Itinerary {
 	}
 	
 	public boolean getWaitForFull() {
-		return itinerary.get(curPos).getWaitForFull();
+		return itinerary.get(curPos.get()).getWaitForFull();
 	}
 	
 	public boolean isLoop() {

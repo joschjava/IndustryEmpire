@@ -225,6 +225,10 @@ public class Vehicle extends Position implements  TickListener{
 		this.itinerary = itinerary;
 	}
 
+	public Itinerary getItinerary() {
+		return itinerary;
+	}
+	
 	@Override
 	public String toString() {
 		return "Vehicle "+id+": "+getX()+":"+getY()+", "+curCity+", Dif:"+Math.round(difX*100)/100.0+","+Math.round(difY*100)/100.0+", status: "+status;
