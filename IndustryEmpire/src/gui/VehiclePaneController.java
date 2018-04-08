@@ -184,6 +184,9 @@ public class VehiclePaneController {
         NumberStringConverter converter = new NumberStringConverter() {
         	@Override
         	public String toString(Number value) {
+        		if(value.doubleValue()<0) {
+        			value = 0.0;
+        		}
 				return String.format("%."+Const.DISPLAY_DIGITS+"f",value.doubleValue())+
 						" / "+String.valueOf(maxFuel);
         	}
