@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -158,11 +159,11 @@ public class Vehicle extends Position implements  TickListener{
 			difX = curCity.getX() - this.getX();
 			difY = curCity.getY() - this.getY();
 			angle.set(getAngleDeg(difX, difY));
-	        KeyValue keyValueX = new KeyValue(xProperty(), curCity.getX());
-	        KeyValue keyValueY = new KeyValue(yProperty(), curCity.getY());
+	        KeyValue keyValueX = new KeyValue(xProperty(), curCity.getX(), Interpolator.EASE_BOTH);
+	        KeyValue keyValueY = new KeyValue(yProperty(), curCity.getY(), Interpolator.EASE_BOTH);
 	        double fuelConsumption = getFuelConsumptionForDistance(distToLocation);
 	        
-	        KeyValue fuel = new KeyValue(fuelProperty(), getFuel()-fuelConsumption);
+	        KeyValue fuel = new KeyValue(fuelProperty(), getFuel()-fuelConsumption, Interpolator.EASE_BOTH);
 //	        System.out.println(xProperty().get() + ":" + yProperty());
 	        
 	        
@@ -265,9 +266,6 @@ public class Vehicle extends Position implements  TickListener{
 	        double fuelTime = Game.getTimeForNrTicks(20);
 	        
 	        KeyValue fuel = new KeyValue(fuelProperty(), specs.getTankSize());
-//	        System.out.println(xProperty().get() + ":" + yProperty());
-	        
-	        
 	        
 	        refuelTimeline =   new Timeline(
 					new KeyFrame(Duration.millis(0)),
