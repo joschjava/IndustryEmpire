@@ -49,12 +49,7 @@ public class GuiVehicle {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-            	int prevCity = vehicle.getCity().hashCode();
                MenuDialog.showBuyVehicle(vehicle);
-//               int newCity = vehicle.getCity().hashCode();
-//               if(prevCity != newCity) {
-//            	   
-//               }
             }
         });
         

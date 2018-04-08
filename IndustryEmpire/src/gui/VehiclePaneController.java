@@ -28,7 +28,7 @@ import javafx.util.Callback;
 
 
 
-public class VehiclePaneController {
+public class VehiclePaneController { 
 
 	@FXML	
 	public ListView<VehicleSpecs> vehicles;
@@ -50,6 +50,9 @@ public class VehiclePaneController {
 	
 	@FXML
 	public Button btCancel;
+	
+	@FXML
+	public Button btSetNextDest;
 	
 	@FXML
 	public Button btFreight;
@@ -112,6 +115,16 @@ public class VehiclePaneController {
 			}
 		});
 		
+		btSetNextDest.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				setSelectedAsNextDestination();
+			}
+		});
+		
+		
+		
+//		btSetNextDest
+		
         itineraryView.setCellFactory(new Callback<ListView<ItineraryItem>, 
                 ListCell<ItineraryItem>>() {
 
@@ -132,10 +145,20 @@ public class VehiclePaneController {
 
     }
 	
+	private void setSelectedAsNextDestination() {
+		int selectedIndex = itineraryView.getSelectionModel().getSelectedIndex();
+		itinerary.setPos(selectedIndex);
+	}
+    
+	/**
+	 * Load the selected vehicle into view
+	 * @param vehicle
+	 */
     public void loadVehicle(Vehicle vehicle) {
     	this.vehicle = vehicle;
     	itinerary = vehicle.getItinerary();
-    	btBuySubmit.setText("Submit");
+    	btBuySubmit.setText("Close");
+    	btCancel.setVisible(false);
     	function = EDIT;
     	vehicles.setDisable(true);
     	fillList();
@@ -145,14 +168,21 @@ public class VehiclePaneController {
     	return vehicles.getSelectionModel().getSelectedItem();
     }
     
+    /**
+     * Fill list with current itinerary
+     */
     private void fillList() {
 	    itineraryView.setItems(itinerary.getObservableItinerary());
     }
     
+    
+    /**
+     * Adds a destination to itinerary
+     */
     private void add() {
     	if(itinerary == null) {
     		itinerary = new Itinerary();
-    	    itineraryView.setItems(itinerary.getObservableItinerary());
+    		fillList();
     	}
     	City city = cityDropDown.getSelectionModel().getSelectedItem();
     	ItineraryItem item = new ItineraryItem(city, null);
@@ -161,6 +191,9 @@ public class VehiclePaneController {
 		itineraryView.requestFocus();
     }
 
+    /**
+     * Adds the currently selected destination from itinerary
+     */
     private void remove() {
     	if(itinerary != null) {
     		MultipleSelectionModel<ItineraryItem> selectionModel = itineraryView.getSelectionModel();
@@ -181,7 +214,7 @@ public class VehiclePaneController {
     
     private void buy() {
     	VehicleSpecs specs = vehicles.getSelectionModel().getSelectedItem();
-    	City cityStart = itinerary.getItinerary().get(0).getDestination();
+    	City cityStart = itinerary.getDestination();
     	vehicle = new Vehicle(specs, cityStart);
     	vehicle.setItinerary(itinerary);
     }
