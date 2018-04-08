@@ -1,7 +1,5 @@
 package gui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import game.City;
@@ -11,6 +9,9 @@ import game.Resource;
 import game.Vehicle;
 import game.VehicleSpecs;
 import gui.objects.ListCellItineraryItem;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,12 +20,16 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
+import javafx.util.converter.NumberStringConverter;
+import mainpack.Const;
 
 
 
@@ -56,6 +61,12 @@ public class VehiclePaneController {
 	
 	@FXML
 	public Button btFreight;
+	
+	@FXML
+	public ProgressBar pbFuel;
+	
+	@FXML
+	public Label lbFuel;
 	
 	private Itinerary itinerary = null;
 
@@ -108,6 +119,8 @@ public class VehiclePaneController {
 			}
 		});
 
+		pbFuel.setVisible(false);
+		
 		btCancel.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				cancel();
@@ -159,6 +172,24 @@ public class VehiclePaneController {
     	itinerary = vehicle.getItinerary();
     	btBuySubmit.setText("Close");
     	btCancel.setVisible(false);
+    	
+    	//Fuel consumption
+    	pbFuel.setVisible(true);
+    	pbFuel.progressProperty().bind(vehicle.fuelPercentProperty());
+    	
+    	DoubleProperty absFuel = vehicle.fuelProperty();
+    	double maxFuel = vehicle.getVehicleSpecs().getTankSize();
+    	StringProperty txtProperty = lbFuel.textProperty();
+
+        NumberStringConverter converter = new NumberStringConverter() {
+        	@Override
+        	public String toString(Number value) {
+				return String.format("%."+Const.DISPLAY_DIGITS+"f",value.doubleValue())+
+						" / "+String.valueOf(maxFuel);
+        	}
+        };
+        Bindings.bindBidirectional(txtProperty, absFuel, converter);
+    	
     	function = EDIT;
     	vehicles.setDisable(true);
     	fillList();

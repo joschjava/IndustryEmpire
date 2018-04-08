@@ -50,6 +50,15 @@ public class Game {
     	tickListener.add(toAdd);
     }
 
+    /**
+     * Returns the needed time in ms for the number of ticks
+     * @param ticks
+     * @return
+     */
+    public static int getTimeForNrTicks(int ticks) {
+    	return ticks*tickInterval;
+    }
+    
 //    public static void pause() {
 //    	if(ticker != null) {
 //    		ticker.stop();

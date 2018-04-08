@@ -24,5 +24,11 @@
             <Button fx:id="btFreight" mnemonicParsing="false" text="Set Freight" />
          </children>
       </HBox>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ProgressBar fx:id="pbFuel" prefWidth="200.0" progress="0.0" />
+            <Label fx:id="lbFuel" text="0 / 0" />
+         </children>
+      </StackPane>
    </children>
 </VBox>

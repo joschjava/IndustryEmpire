@@ -13,6 +13,9 @@ public class VehicleSpecs {
 	private int load;
 	private String name;
 	private static ArrayList<VehicleSpecs> allSpecs = new ArrayList<VehicleSpecs>();
+	private int tankSize = 20;
+	/** Consumption per 100 px */
+	private double fuelConsumption = 20;
 	
 	/**
 	 * @param speed
@@ -29,6 +32,15 @@ public class VehicleSpecs {
 		this.load = load;
 		allSpecs.add(this);
 		System.out.println(this);
+	}
+	
+	/** Consumption per 100 px */
+	public double getFuelConsumption() {
+		return fuelConsumption;
+	}
+	
+	public int getTankSize() {
+		return tankSize;
 	}
 	
 	public int getSpeed() {

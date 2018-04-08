@@ -69,7 +69,10 @@ public class GuiVehicle {
 		pane.layoutYProperty().bind(vehicle.yProperty());
 		
 		//Let vehicle disappear when in city
-		BooleanBinding vehicleDriving = Bindings.when(vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)).then(true).otherwise(false);
+		BooleanBinding vehicleDriving = Bindings.when(
+				vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)
+				.or(vehicle.statusProperty().isEqualTo(Vehicle.REFUEL)))
+				.then(true).otherwise(false);
 		iv.visibleProperty().bind(vehicleDriving);
 		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
 

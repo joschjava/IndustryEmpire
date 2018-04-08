@@ -6,6 +6,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -32,12 +34,16 @@ public class Vehicle extends Position implements  TickListener{
 	private DoubleProperty x = new SimpleDoubleProperty();
 	private DoubleProperty y = new SimpleDoubleProperty();
 	private DoubleProperty angle = new SimpleDoubleProperty();
-	public Timeline driveTimeline = new Timeline();
+	private Timeline driveTimeline = new Timeline();
+	private Timeline refuelTimeline = new Timeline();
+	private DoubleProperty fuelLoad = new SimpleDoubleProperty(0);
+	private int fuelTickTime = -1;
 	
 	public static final int DRIVING = 0;
 	public static final int UNLOADING = 1;
 	public static final int LOADING = 2;
 	public static final int IDLE = 3;
+	public static final int REFUEL = 4;
 	
 	
 	
@@ -46,9 +52,24 @@ public class Vehicle extends Position implements  TickListener{
 		setLocation(city);
 		this.specs = specs;
 		id = idCounter++;
+		setTankFull();
+		fuelLoad.addListener((observable, oldValue, newValue)->{
+			if(newValue.doubleValue() <= 0) {
+				driveTimeline.stop();
+				status.set(REFUEL);
+			}
+		});
+		status.addListener((observable, oldValue, newValue)->{
+			System.out.println("New Status: "+newValue);
+		});
 		Game.getInstance().addListener(this);
 	}
 		
+	
+	public VehicleSpecs getVehicleSpecs() {
+		return specs;
+	}
+	
 	@Override
 	public double getX() {
 		return x.get();
@@ -94,6 +115,10 @@ public class Vehicle extends Position implements  TickListener{
 		y.set(city.getY());
 	}
 
+	public NumberBinding fuelPercentProperty() {
+		return Bindings.divide(fuelLoad, specs.getTankSize());
+	}
+	
 	public void driveToNextItineraryItem() {
 		boolean nextDest = itinerary.setNextDestination();
 		if(nextDest) {
@@ -107,12 +132,14 @@ public class Vehicle extends Position implements  TickListener{
 		}
 	}
 	
-	public void interruptDriving() {
+	public void forceNextDestination() {
 		driveTimeline.stop();
 		curCity = itinerary.getDestination();	
 		status.set(DRIVING);
 		System.out.println("Itinerary changed while driving, Vehicle "+id+" drives to "+curCity);
 	}
+	
+	
 	
 	public IntegerProperty statusProperty() {
 		return status;
@@ -120,22 +147,41 @@ public class Vehicle extends Position implements  TickListener{
 	
 	private void drive() {
 		if(driveTimeline.getStatus() == Animation.Status.STOPPED) {
+			System.out.println("Timeline init");
 			distToLocation = Functions.getDistance(this,curCity);
+//			if(getLeftDistanceWithFuel() < distToLocation) {
+//				
+//			}
+			
+			
 			int timeNeeded = (int) Math.ceil(distToLocation / (double) specs.getSpeed() * Game.tickInterval);
 			difX = curCity.getX() - this.getX();
 			difY = curCity.getY() - this.getY();
 			angle.set(getAngleDeg(difX, difY));
 	        KeyValue keyValueX = new KeyValue(xProperty(), curCity.getX());
 	        KeyValue keyValueY = new KeyValue(yProperty(), curCity.getY());
+	        double fuelConsumption = getFuelConsumptionForDistance(distToLocation);
+	        
+	        KeyValue fuel = new KeyValue(fuelProperty(), getFuel()-fuelConsumption);
 //	        System.out.println(xProperty().get() + ":" + yProperty());
+	        
+	        
 	        
 			driveTimeline =   new Timeline(
 					new KeyFrame(Duration.millis(0)),
-					new KeyFrame(Duration.millis(timeNeeded), keyValueX, keyValueY)
+					new KeyFrame(Duration.millis(timeNeeded), keyValueX, keyValueY, fuel)
 					);
 			driveTimeline.setOnFinished(e -> arriveInCity());
 			driveTimeline.play();
 		}
+	}
+
+	public DoubleProperty fuelProperty() {
+		return fuelLoad;
+	}
+	
+	private double getFuel() {
+		return fuelLoad.doubleValue();
 	}
 
 	private void arriveInCity() {
@@ -214,6 +260,51 @@ public class Vehicle extends Position implements  TickListener{
 		}
 	}
 	
+	private void refuel() {
+		if(refuelTimeline.getStatus() == Animation.Status.STOPPED) {
+	        double fuelTime = Game.getTimeForNrTicks(20);
+	        
+	        KeyValue fuel = new KeyValue(fuelProperty(), specs.getTankSize());
+//	        System.out.println(xProperty().get() + ":" + yProperty());
+	        
+	        
+	        
+	        refuelTimeline =   new Timeline(
+					new KeyFrame(Duration.millis(0)),
+					new KeyFrame(Duration.millis(fuelTime), fuel)
+					);
+	        refuelTimeline.setOnFinished(e -> {
+				status.set(DRIVING);
+			});
+	        refuelTimeline.play();
+		}
+	}
+	
+	/**
+	 * Calculates how many pixels vehicle can still drive with current fuel
+	 * @return
+	 */
+	private double getLeftDistanceWithFuel() {
+		double consumption = specs.getFuelConsumption();
+		return fuelLoad.get()/consumption *100;
+	}
+	
+	/**
+	 * Calculates how much fuel vehicle needs for given distance
+	 * @return
+	 */
+	private double getFuelConsumptionForDistance(double distance) {
+		double consumption = specs.getFuelConsumption();
+		return distance * consumption /100;
+	}
+	
+	/**
+	 * Fills up the gas tank completely
+	 */
+	private void setTankFull() {
+		fuelLoad.set(specs.getTankSize());
+	}
+	
 	public void printLoad() {
 		System.out.println(this);
 		if(load.isEmpty()) {
@@ -232,7 +323,7 @@ public class Vehicle extends Position implements  TickListener{
 		this.itinerary = itinerary;
 		itinerary.curPosProperty().addListener((observable, oldValue, newValue)->{
 			if(status.get() == DRIVING) {
-				interruptDriving();
+				forceNextDestination();
 			}
 		});
 	}
@@ -263,6 +354,10 @@ public class Vehicle extends Position implements  TickListener{
 				
 			case IDLE:
 				driveToNextItineraryItem();	
+				break;
+		
+			case REFUEL:
+				refuel();	
 				break;
 		}
 	}
