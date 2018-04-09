@@ -13,7 +13,7 @@ public class VehicleSpecs {
 	private int load;
 	private String name;
 	private static ArrayList<VehicleSpecs> allSpecs = new ArrayList<VehicleSpecs>();
-	private int tankSize = 300;
+	private int tankSize = 40;
 	/** Consumption per 100 px */
 	private double fuelConsumption = 20;
 	

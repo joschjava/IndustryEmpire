@@ -43,7 +43,7 @@ public class IndustryMain extends Application {
 		
 		
 		Game.getInstance();
-		City essen = new City("Essen");
+		City essen = new City("Essen");          
 		essen.setResourceAmount(Resources.WOOD, 20);
 		City berlin = new City("Berlin");
 		City frankfurt = new City("Frankfurt");
