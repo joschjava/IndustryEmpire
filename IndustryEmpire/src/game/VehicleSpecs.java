@@ -13,9 +13,9 @@ public class VehicleSpecs {
 	private int load;
 	private String name;
 	private static ArrayList<VehicleSpecs> allSpecs = new ArrayList<VehicleSpecs>();
-	private int tankSize = 40;
+	private int tankSize;
 	/** Consumption per 100 px */
-	private double fuelConsumption = 20;
+	private double fuelConsumption;
 	
 	/**
 	 * @param speed
@@ -26,12 +26,25 @@ public class VehicleSpecs {
 		this(speed,load, "Nameless "+allSpecs.size());
 	}
 	
+	/**
+	 * 
+	 * @param speed
+	 * @param load
+	 * @param name
+	 * @deprecated Define tank size and fuel consumption
+	 */
 	public VehicleSpecs(int speed, int load, String name) {
+		this(speed,load,name,40,20);
+		System.err.println("Vehicle tankSize and fuel consumption not defined, used standard values!");
+	}
+	
+	public VehicleSpecs(int speed, int load, String name, int tankSize, double fuelConsumption) {
 		this.name = name;
 		this.speed = speed;
 		this.load = load;
+		this.tankSize = tankSize;
+		this.fuelConsumption = fuelConsumption;
 		allSpecs.add(this);
-		System.out.println(this);
 	}
 	
 	/** Consumption per 100 px */
