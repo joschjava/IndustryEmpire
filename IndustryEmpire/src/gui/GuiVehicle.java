@@ -24,6 +24,7 @@ public class GuiVehicle {
 	private Pane pane;
 	private Vehicle vehicle;
 	private ImageView iv;
+	private ImageView ivFuel;
 	Image image;
 	Image image_m;
 	private Glow highlightEffect;
@@ -57,12 +58,18 @@ public class GuiVehicle {
         
 		File file = new File("graphics/truck.png");
 		File file_m = new File("graphics/truck_m.png");
+		String fuelImageRes = GuiVehicle.class.getResource("/gas-pump.png").toExternalForm();
+		Image fuelImage = new Image(fuelImageRes);
+		ivFuel = new ImageView(fuelImage);
+		ivFuel.setPreserveRatio(true);
+		ivFuel.setFitHeight(15);
+		ivFuel.relocate(0, -20);
+		
 		image = new Image(file.toURI().toString(),20,20, true, true);
 		image_m = new Image(file_m.toURI().toString(),20,20, true, true);
 		iv = new ImageView();
 		iv.setImage(image);
 		iv.relocate(0,0);
-		Label lb = new Label();
 		
 		//Attach guiVehicle to guiVehicle Position
 		pane.layoutXProperty().bind(vehicle.xProperty());
@@ -76,13 +83,20 @@ public class GuiVehicle {
 		iv.visibleProperty().bind(vehicleDriving);
 		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
 
+		// Show fuel symbol when refueling
+		BooleanBinding vehicleRefuel = Bindings.when(
+				vehicle.statusProperty().isEqualTo(Vehicle.REFUEL))
+				.then(true).otherwise(false);
+		ivFuel.visibleProperty().bind(vehicleRefuel);
+		ivFuel.setMouseTransparent(true);
+		
 		//Update Rotation of vehicle
 		vehicle.angleProperty().addListener((observable, oldvalue, newValue)->{
 			updateRotation(newValue.doubleValue());
 		});
 		
 		pane.getChildren().add(iv);
-		pane.getChildren().add(lb);
+		pane.getChildren().add(ivFuel);
 	}
 	
 	// CHANGE TO X Y AND PROPERTY LISTENER
