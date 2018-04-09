@@ -27,9 +27,13 @@ public class Const {
 	
 	public static final String GRAPHICS_FOLDER = "graphics";
 	public static final String RES_FOLDER = "res";
+	public static final String BUILD_FOLDER = "buildings";
 	
 	/** Image file for resources whose images couldn't be found or weren't properly defined */
 	public static final String IM_UNKNOWN = "unknown.png";
+	
+	/** Image file for buildings whose images couldn't be found or weren't properly defined */
+	public static final String BUILD_UNKNOWN = IM_UNKNOWN;
 	
 	
 	

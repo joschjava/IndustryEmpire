@@ -19,7 +19,7 @@ public class City extends Position{
 	
 	
 	/** List of buildings in this city */
-	ArrayList<Building> buildings = new ArrayList<Building>();
+	private ArrayList<Building> buildings = new ArrayList<Building>();
 	
 	/** List of connections to other cities */
 	ArrayList<Connection> connections = new ArrayList<Connection>();
@@ -98,7 +98,10 @@ public class City extends Position{
 		buildings.add(building);
 		building.getBuildingSpec().getInputRes().forEach((res)->chgResource(res.getSpec(), 0.0));
 		building.getBuildingSpec().getOutputRes().forEach((res)->chgResource(res.getSpec(), 0.0));
-		//		chgResource(res, operation)
+	}
+	
+	public ArrayList<Building> getBuildingList(){
+		return buildings;
 	}
 	
 	/**

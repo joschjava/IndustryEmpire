@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import mainpack.IndustryMain;
 
 public class MenuDialog {
@@ -51,7 +50,7 @@ public class MenuDialog {
 			e.printStackTrace();
 		}
 		CityPaneController controller = loader.getController();
-		controller.setCityName(city);
+		controller.setCity(city);
 		ArrayList<Resource> resources = city.getAllResources();
 		System.out.println(resources.size());
 		resources.forEach((resource)->{

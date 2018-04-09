@@ -1,8 +1,11 @@
 package game;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import Exceptions.DoubleResourceException;
+import javafx.scene.image.Image;
+import mainpack.Const;
 
 /** Defines how much in- and output is needed for the building to produce something */
 public class BuildingSpec {
@@ -18,16 +21,60 @@ public class BuildingSpec {
 	/** Defines how quickly one output is produced */
 	private int speed;
 	
+	private Image image;
+	private String imageFileName;
+	private static File unknownFile;
+	
 	/**
 	 * Defines a building prototype
 	 * @param name Name of the building
 	 * @param name Defines how quickly one output is produced
+	 * @deprecated Define image!
 	 */
 	public BuildingSpec(String name, int speed) {
 		this.name = name;
 		this.speed = speed;
 	}
+	
+	/**
+	 * Defines a building prototype
+	 * @param name Name of the building
+	 * @param name Defines how quickly one output is produced
+	 * @param imageFileName filename of building image
+	 */
+	public BuildingSpec(String name, int speed, String imageFileName) {
+		this.name = name;
+		this.speed = speed;
+		this.imageFileName = imageFileName;
+	}
 
+	private void loadImage() {
+		File imageFile = new File(
+					 	Const.BUILD_FOLDER + "/" + 
+					 	imageFileName
+					);
+		if(!imageFile.isFile()) {
+			System.err.println("Image not found or not defined for Resource: "+name);
+			if(unknownFile == null) {
+				imageFile = new File(
+					 	Const.BUILD_FOLDER + "/" + 
+					 	Const.BUILD_UNKNOWN
+					);
+				unknownFile = imageFile;
+			} else {
+				imageFile = unknownFile;
+			}
+		}
+		image = new Image(imageFile.toURI().toString());
+	}
+	
+	public Image getImage() {
+		if(image == null) {
+			loadImage();
+		}
+		return image;
+	}
+	
 	/**
 	 * Don't add same Resource in input and output!
 	 * @param resSpec

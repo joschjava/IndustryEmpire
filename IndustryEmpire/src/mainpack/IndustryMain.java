@@ -32,13 +32,6 @@ public class IndustryMain extends Application {
 	Pane route = new Pane();
 	
 	public static void main(String[] args) {
-		
-//		new City("neu");
-//		for(int y=0;y<200;y+=50) {
-//			for(int x=0;x<200;x+=50) {
-//				new City(x,y);
-//			}
-//		}
 
 		
 		
@@ -50,8 +43,11 @@ public class IndustryMain extends Application {
 		City bonn = new City("Bonn");
 		City newtown = new City("Newtown");
 		new Buildings();
+		new Building(Buildings.WOOD_FACTORY, essen);
 //		new Building(Buildings.WOOD_FACTORY, essen);
 		new Building(Buildings.BOOK_FACTORY, frankfurt);
+		new Building(Buildings.SUPER_RES_FACTORY, essen);
+		
 		Vehicle karl = new Vehicle(new VehicleSpecs(5,20), essen);
         Itinerary itinerary = new Itinerary();
         Resource[] input = {new Resource(Resources.WOOD,20)};

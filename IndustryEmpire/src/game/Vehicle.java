@@ -54,15 +54,6 @@ public class Vehicle extends Position implements  TickListener{
 		this.specs = specs;
 		id = idCounter++;
 		setTankFull();
-//		fuelLoad.addListener((observable, oldValue, newValue)->{
-//			if(newValue.doubleValue() <= 0) {
-//				driveTimeline.stop();
-//				status.set(REFUEL);
-//			}
-//		});
-		status.addListener((observable, oldValue, newValue)->{
-			System.out.println("New Status: "+newValue);
-		});
 		Game.getInstance().addListener(this);
 	}
 		

@@ -26,6 +26,7 @@ public class GuiCity {
 	public GuiCity(City city){
 		this.city = city;
 		pane = new Pane();
+		pane.setPickOnBounds(true);
 		File file = new File("graphics/city.png");
 
 

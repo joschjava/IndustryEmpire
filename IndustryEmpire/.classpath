@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="CSS"/>
 	<classpathentry kind="src" path="files"/>
 	<classpathentry kind="src" path="graphics/res"/>
+	<classpathentry kind="src" path="buildings"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ApacheCommon"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
