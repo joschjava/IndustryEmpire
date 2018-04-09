@@ -6,11 +6,8 @@ import java.io.File;
 import game.Vehicle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -22,30 +19,34 @@ public class GuiVehicle {
 
 //	private Text text;
 	private Pane pane;
-	private Vehicle vehicle;
 	private ImageView iv;
 	private ImageView ivFuel;
-	Image image;
-	Image image_m;
+	private static Image image = null;
+	private static Image image_m = null;
+	private static Image fuelImage = null;
 	private Glow highlightEffect;
 
 	
 	public GuiVehicle(Vehicle vehicle){
-		this.vehicle = vehicle;
 		pane = new Pane();
 
         
 		File file = new File("graphics/truck.png");
 		File file_m = new File("graphics/truck_m.png");
-		String fuelImageRes = GuiVehicle.class.getResource("/gas-pump.png").toExternalForm();
-		Image fuelImage = new Image(fuelImageRes);
+		
+		
+		if(fuelImage == null) {
+			String fuelImageRes = GuiVehicle.class.getResource("/gas-pump.png").toExternalForm();
+			fuelImage = new Image(fuelImageRes);
+		}
 		ivFuel = new ImageView(fuelImage);
 		ivFuel.setPreserveRatio(true);
 		ivFuel.setFitHeight(15);
 		ivFuel.relocate(0, -20);
-		
-		image = new Image(file.toURI().toString(),20,20, true, true);
-		image_m = new Image(file_m.toURI().toString(),20,20, true, true);
+		if(image == null || image_m == null) {
+			image = new Image(file.toURI().toString(),20,20, true, true);
+			image_m = new Image(file_m.toURI().toString(),20,20, true, true);
+		}
 		iv = new ImageView();
 		iv.setImage(image);
 		iv.relocate(0,0);

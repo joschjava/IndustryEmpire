@@ -194,6 +194,7 @@ public class VehiclePaneController {
         Bindings.bindBidirectional(txtProperty, absFuel, converter);
     	
     	function = EDIT;
+    	vehicles.getSelectionModel().select(vehicle.getVehicleSpecs());
     	vehicles.setDisable(true);
     	fillList();
     }
