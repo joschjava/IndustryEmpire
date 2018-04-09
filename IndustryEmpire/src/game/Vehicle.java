@@ -136,7 +136,6 @@ public class Vehicle extends Position implements  TickListener{
 	public void forceNextDestination() {
 		driveTimeline.stop();
 		curCity = itinerary.getDestination();	
-		status.set(DRIVING);
 		System.out.println("Itinerary changed while driving, Vehicle "+id+" drives to "+curCity);
 	}
 	
@@ -193,20 +192,20 @@ public class Vehicle extends Position implements  TickListener{
 		}
 	}
 
-	public DoubleProperty fuelProperty() {
-		return fuelLoad;
-	}
-	
-	private double getFuel() {
-		return fuelLoad.doubleValue();
-	}
-
 	private void arriveInCity() {
 		System.out.println("Vehicle "+id+" arrived in "+curCity);
 		//Arrived
 		setLocation(curCity);
 		status.set(UNLOADING);
 		Game.getInstance().addListener(this);
+	}
+
+	public DoubleProperty fuelProperty() {
+		return fuelLoad;
+	}
+	
+	private double getFuel() {
+		return fuelLoad.doubleValue();
 	}
 	
 	/**
@@ -336,7 +335,8 @@ public class Vehicle extends Position implements  TickListener{
 	public void setItinerary(Itinerary itinerary) {
 		this.itinerary = itinerary;
 		itinerary.curPosProperty().addListener((observable, oldValue, newValue)->{
-			if(status.get() == DRIVING) {
+			if(status.get() == DRIVING ||
+			   status.get() == REFUEL) {
 				forceNextDestination();
 			}
 		});
