@@ -33,28 +33,7 @@ public class GuiVehicle {
 	public GuiVehicle(Vehicle vehicle){
 		this.vehicle = vehicle;
 		pane = new Pane();
-        pane.setOnMouseEntered(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-               highlight();
-            }
-        });
-        
-        pane.setOnMouseExited(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-               unhighlight();
-            }
-        });
-        
-        pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-               MenuDialog.showBuyVehicle(vehicle);
-            }
-        });
-        
-        pane.setCursor(Cursor.OPEN_HAND);
+
         
 		File file = new File("graphics/truck.png");
 		File file_m = new File("graphics/truck_m.png");
@@ -71,6 +50,29 @@ public class GuiVehicle {
 		iv.setImage(image);
 		iv.relocate(0,0);
 		
+		iv.setOnMouseEntered(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+               highlight();
+            }
+        });
+        
+		iv.setOnMouseExited(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+               unhighlight();
+            }
+        });
+        
+		iv.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+               MenuDialog.showBuyVehicle(vehicle);
+            }
+        });
+        
+		iv.setCursor(Cursor.OPEN_HAND);
+		
 		//Attach guiVehicle to guiVehicle Position
 		pane.layoutXProperty().bind(vehicle.xProperty());
 		pane.layoutYProperty().bind(vehicle.yProperty());
@@ -81,7 +83,7 @@ public class GuiVehicle {
 				.or(vehicle.statusProperty().isEqualTo(Vehicle.REFUEL)))
 				.then(true).otherwise(false);
 		iv.visibleProperty().bind(vehicleDriving);
-		pane.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
+		iv.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
 
 		// Show fuel symbol when refueling
 		BooleanBinding vehicleRefuel = Bindings.when(
