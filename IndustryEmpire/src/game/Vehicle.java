@@ -11,8 +11,10 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.Duration;
 import mainpack.Functions;
 import objects.ResourceList;
@@ -31,7 +33,7 @@ public class Vehicle extends Position implements  TickListener{
 	private ResourceList load = new ResourceList();
 	private double difX;
 	private double difY;
-	private IntegerProperty status = new SimpleIntegerProperty(LOADING);
+//	private IntegerProperty status = new SimpleIntegerProperty(LOADING);
 	private DoubleProperty x = new SimpleDoubleProperty();
 	private DoubleProperty y = new SimpleDoubleProperty();
 	private DoubleProperty angle = new SimpleDoubleProperty();
@@ -40,12 +42,18 @@ public class Vehicle extends Position implements  TickListener{
 	private DoubleProperty fuelLoad = new SimpleDoubleProperty(0);
 	
 	
-	public static final int DRIVING = 0;
-	public static final int UNLOADING = 1;
-	public static final int LOADING = 2;
-	public static final int IDLE = 3;
-	public static final int REFUEL = 4;
+//	public static final int DRIVING = 0;
+//	public static final int UNLOADING = 1;
+//	public static final int LOADING = 2;
+//	public static final int IDLE = 3;
+//	public static final int REFUEL = 4;
 	
+	public enum Status {
+		DRIVING, UNLOADING, LOADING, IDLE, REFUEL;
+	}	
+	
+	ObjectProperty<Status> status = new SimpleObjectProperty<Status>(Status.LOADING);
+
 	
 	
 	public Vehicle(VehicleSpecs specs, City city){
@@ -119,7 +127,7 @@ public class Vehicle extends Position implements  TickListener{
 				curCity = null;
 			}
 			curCity = itinerary.getDestination();	
-			status.set(DRIVING);
+			status.set(Status.DRIVING);
 			System.out.println("Vehicle "+id+" drives to "+curCity);
 		}
 	}
@@ -132,7 +140,7 @@ public class Vehicle extends Position implements  TickListener{
 	
 	
 	
-	public IntegerProperty statusProperty() {
+	public ObjectProperty<Status> statusProperty() {
 		return status;
 	}
 	
@@ -150,7 +158,7 @@ public class Vehicle extends Position implements  TickListener{
 			angle.set(getAngleDeg(difX, difY));
 			double fuelDistance = getLeftDistanceWithFuel();
 			boolean fuelStop = false;
-			System.out.println("CityDist"+distToLocation+ ", FuelDist: "+fuelDistance);
+
 			if(fuelDistance < distToLocation) {
 				distToLocation = fuelDistance;
 				fuelStop = true;
@@ -175,7 +183,7 @@ public class Vehicle extends Position implements  TickListener{
 					);
 		
 			if(fuelStop) {
-				driveTimeline.setOnFinished(e -> status.set(REFUEL));
+				driveTimeline.setOnFinished(e -> status.set(Status.REFUEL));
 			} else {
 				driveTimeline.setOnFinished(e -> arriveInCity());
 			}
@@ -187,7 +195,7 @@ public class Vehicle extends Position implements  TickListener{
 		System.out.println("Vehicle "+id+" arrived in "+curCity);
 		//Arrived
 		setLocation(curCity);
-		status.set(UNLOADING);
+		status.set(Status.UNLOADING);
 		Game.getInstance().addListener(this);
 	}
 
@@ -232,7 +240,7 @@ public class Vehicle extends Position implements  TickListener{
 			curCity.chgResource(resource, ResourceList.PLUS);
 		});
 		load.clearList();
-		status.set(LOADING);
+		status.set(Status.LOADING);
 	}
 	
 	private void load() {
@@ -261,9 +269,9 @@ public class Vehicle extends Position implements  TickListener{
 		}
 		
 		if(!itinerary.getWaitForFull()) { // If vehicle should wait for full
-			status.set(IDLE);
+			status.set(Status.IDLE);
 		} else if(full) { 		// Vehicle waits for full, is it satisfied?
-			status.set(IDLE);
+			status.set(Status.IDLE);
 		}
 	}
 	
@@ -278,7 +286,7 @@ public class Vehicle extends Position implements  TickListener{
 					new KeyFrame(Duration.millis(fuelTime), fuel)
 					);
 	        refuelTimeline.setOnFinished(e -> {
-				status.set(DRIVING);
+				status.set(Status.DRIVING);
 			});
 	        refuelTimeline.play();
 		}
@@ -326,8 +334,8 @@ public class Vehicle extends Position implements  TickListener{
 	public void setItinerary(Itinerary itinerary) {
 		this.itinerary = itinerary;
 		itinerary.curPosProperty().addListener((observable, oldValue, newValue)->{
-			if(status.get() == DRIVING ||
-			   status.get() == REFUEL) {
+			if(status.get() == Status.DRIVING ||
+			   status.get() == Status.REFUEL) {
 				forceNextDestination();
 			}
 		});
@@ -344,7 +352,7 @@ public class Vehicle extends Position implements  TickListener{
 	
 	@Override
 	public void onTick() {
-		switch(status.intValue()) {
+		switch(status.get()) {
 			case DRIVING:
 				drive();
 				break;

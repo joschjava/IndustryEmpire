@@ -80,15 +80,15 @@ public class GuiVehicle {
 		
 		//Let vehicle disappear when in city
 		BooleanBinding vehicleDriving = Bindings.when(
-				vehicle.statusProperty().isEqualTo(Vehicle.DRIVING)
-				.or(vehicle.statusProperty().isEqualTo(Vehicle.REFUEL)))
+				vehicle.statusProperty().isEqualTo(Vehicle.Status.DRIVING)
+				.or(vehicle.statusProperty().isEqualTo(Vehicle.Status.REFUEL)))
 				.then(true).otherwise(false);
 		iv.visibleProperty().bind(vehicleDriving);
 		iv.mouseTransparentProperty().bind(Bindings.not(vehicleDriving));
 
 		// Show fuel symbol when refueling
 		BooleanBinding vehicleRefuel = Bindings.when(
-				vehicle.statusProperty().isEqualTo(Vehicle.REFUEL))
+				vehicle.statusProperty().isEqualTo(Vehicle.Status.REFUEL))
 				.then(true).otherwise(false);
 		ivFuel.visibleProperty().bind(vehicleRefuel);
 		ivFuel.setMouseTransparent(true);
