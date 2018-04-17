@@ -14,7 +14,8 @@ import mainpack.Const;
 public class ResourceSpec {
 
 	private String name;
-
+	private int basicPrice;
+	
 	private static int idCtr = 0;
 	private int id;
 	private Image image;	
@@ -24,15 +25,41 @@ public class ResourceSpec {
 	//TODO: Performance: Change this to Array
 	private static ArrayList<ResourceSpec> allResources = new ArrayList<ResourceSpec>();
 	
-	
+	/**
+	 * 
+	 * @param name
+	 * @deprecated Add imagefile!s
+	 */
 	public ResourceSpec(String name) {
 		this(name, null);
+		System.err.println("No Image set for Resource: "+name);
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @deprecated Add imagefile!s
+	 */
+	public ResourceSpec(String name, int basicPrice) {
+		this(name, null, basicPrice);
+		System.err.println("No Image set for Resource: "+name);
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @deprecated Add basicPrice
+	 */
 	public ResourceSpec(String name, String imageFileName) {
+		this(name, imageFileName, 0);
+		System.err.println("No basicPrice set for Resource: "+name);
+	}
+	
+	public ResourceSpec(String name, String imageFileName, int basicPrice) {
 		this.name = name;
 		this.id = idCtr++;
 		this.imageFileName = imageFileName;
+		this.basicPrice = basicPrice;
 		allResources.add(this);
 	}
 
@@ -67,6 +94,10 @@ public class ResourceSpec {
 			loadImage();
 		}
 		return image;
+	}
+	
+	public int getBasicPrice() {
+		return basicPrice;
 	}
 	
 	public int getResId() {

@@ -148,9 +148,6 @@ public class Vehicle extends Position implements  TickListener{
 		if(driveTimeline.getStatus() == Animation.Status.STOPPED) {
 			System.out.println("Timeline init");
 			distToLocation = Functions.getDistance(this,curCity);
-			
-			
-			
 	        double xDestination = curCity.getX();
 	        double yDestination = curCity.getY();
 			difX = (xDestination - this.getX())/distToLocation;
@@ -164,7 +161,6 @@ public class Vehicle extends Position implements  TickListener{
 				fuelStop = true;
 				xDestination = difX * fuelDistance + this.getX();
 				yDestination = difY * fuelDistance + this.getY();
-				System.out.println(xDestination+" "+ yDestination);
 			}
 			
 			
@@ -236,9 +232,14 @@ public class Vehicle extends Position implements  TickListener{
 	private void unload() {
 		System.out.println("Vehicle "+id+" unloads in "+curCity);	
 		ArrayList<Resource> allRes = load.getAllResources();
-		allRes.forEach((resource)-> {
+		double moneyGained = 0;
+		for(Resource resource : allRes) {
 			curCity.chgResource(resource, ResourceList.PLUS);
-		});
+			double resMoney = resource.getAmount() * resource.getSpec().getBasicPrice();
+			moneyGained += resMoney;
+		}
+
+		Player.getInstance().chgMoneyValueBy((int) moneyGained);
 		load.clearList();
 		status.set(Status.LOADING);
 	}
@@ -247,31 +248,35 @@ public class Vehicle extends Position implements  TickListener{
 		//TODO: initialise variables once, then only iterate for loop
 		System.out.println("Vehicle "+id+" loads in "+curCity);
 		boolean full = true;
-		Resource[] input = itinerary.getLoad();
-		if(input != null) { 
-			for(Resource res: input) {
-				//TODO: This takes a lot of resources, dude!
-				//Create static resource class?
-				Resource leftRes = res.getCopy();
-				Resource vehicleRes = load.getElementByResSpec(leftRes.getSpec());
-				double leftAmount = res.getAmount()-vehicleRes.getAmount();
-				leftRes.setAmount(leftAmount, false);
-				
-				Resource cityChgResource = curCity.chgResource(leftRes, ResourceList.MINUS);
-				load.chgResourceAmountBy(cityChgResource, ResourceList.PLUS);
-				
-				//Check if enough Resources are loaded to vehicle as specified in Itinerary
-				boolean partFull = vehicleRes.isEqualAmount(res);
-				if(!partFull) {
-					full = false;
+		if(itinerary != null) {
+			Resource[] input = itinerary.getLoad();
+			if(input != null) { 
+				for(Resource res: input) {
+					//TODO: This takes a lot of resources, dude!
+					//Create static resource class?
+					Resource leftRes = res.getCopy();
+					Resource vehicleRes = load.getElementByResSpec(leftRes.getSpec());
+					double leftAmount = res.getAmount()-vehicleRes.getAmount();
+					leftRes.setAmount(leftAmount, false);
+					
+					Resource cityChgResource = curCity.chgResource(leftRes, ResourceList.MINUS);
+					load.chgResourceAmountBy(cityChgResource, ResourceList.PLUS);
+					
+					//Check if enough Resources are loaded to vehicle as specified in Itinerary
+					boolean partFull = vehicleRes.isEqualAmount(res);
+					if(!partFull) {
+						full = false;
+					}
 				}
 			}
-		}
-		
-		if(!itinerary.getWaitForFull()) { // If vehicle should wait for full
-			status.set(Status.IDLE);
-		} else if(full) { 		// Vehicle waits for full, is it satisfied?
-			status.set(Status.IDLE);
+			
+			if(!itinerary.getWaitForFull()) { // If vehicle should wait for full
+				status.set(Status.IDLE);
+			} else if(full) { 		// Vehicle waits for full, is it satisfied?
+				status.set(Status.IDLE);
+			}
+		} else {
+			System.err.println("No itinerary found for vehicle: "+this.id);
 		}
 	}
 	

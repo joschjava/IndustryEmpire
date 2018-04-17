@@ -13,6 +13,7 @@ import game.Resource;
 import game.Resources;
 import game.Vehicle;
 import game.VehicleSpecs;
+import game.Vehicles;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -48,16 +49,16 @@ public class IndustryMain extends Application {
 		new Building(Buildings.BOOK_FACTORY, frankfurt);
 		new Building(Buildings.SUPER_RES_FACTORY, essen);
 		
-		Vehicle karl = new Vehicle(new VehicleSpecs(5,20), essen);
+		Vehicle karl = new Vehicle(Vehicles.FUEL_TRUCK, essen);
         Itinerary itinerary = new Itinerary();
         Resource[] input = {new Resource(Resources.WOOD,20)};
         ItineraryItem item = new ItineraryItem(essen, input);
+        Resource[] input2 = {new Resource(Resources.BOOKS,20)};
+        ItineraryItem item2 = new ItineraryItem(frankfurt, input2);
 //        item.setWaitForFull(true);
-		itinerary.add(item);
-        itinerary.add(new ItineraryItem(bonn, null));
-        itinerary.add(new ItineraryItem(newtown, null));
-        itinerary.add(new ItineraryItem(berlin, null));
-        itinerary.add(new ItineraryItem(frankfurt, null));
+        itinerary.add(item);
+		itinerary.add(item2);
+
         
         karl.setItinerary(itinerary);
 		launch(args);

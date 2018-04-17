@@ -1,5 +1,6 @@
 package gui;
 
+import game.Player;
 import game.Vehicle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +12,8 @@ public class MainWindowController {
 	
 	@FXML
 	public Button btBuyVehicle;
+	@FXML
+	public Button btDebug;
 	
 	@FXML
 	public WorldPane worldPane;
@@ -18,13 +21,19 @@ public class MainWindowController {
     @FXML
     public void initialize() {
     	btBuyVehicle.setOnAction(new EventHandler<ActionEvent>() {
+    		@Override public void handle(ActionEvent e) {
+    			Vehicle vehicle = MenuDialog.showBuyVehicle(null);
+    			if(vehicle != null) {
+    				worldPane.addNewVehicle(vehicle);
+    			}
+    		}
+    	});
+    	btDebug.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				Vehicle vehicle = MenuDialog.showBuyVehicle(null);
-				if(vehicle != null) {
-					worldPane.addNewVehicle(vehicle);
-				}
+				Player.getInstance().chgMoneyValueBy(1000);
 			}
 		});
+    	
     }
 	
 }

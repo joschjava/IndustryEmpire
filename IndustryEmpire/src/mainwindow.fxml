@@ -11,6 +11,7 @@
       <HBox>
          <children>
             <Button fx:id="btBuyVehicle" mnemonicParsing="false" text="Buy Vehicle" />
+            <Button fx:id="btDebug" mnemonicParsing="false" text="Debug Function" />
          </children>
       </HBox>
 	<WorldPane fx:id="worldPane"/>

@@ -62,9 +62,6 @@ public class WorldPane extends StackPane{
 			}
 		};
 		
-
-		
-		
 		money.textProperty().bindBidirectional(player.moneyProperty(), moneyConverter);
 		
 		

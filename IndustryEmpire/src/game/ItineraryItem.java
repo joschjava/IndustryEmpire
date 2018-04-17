@@ -4,16 +4,20 @@ import java.util.Arrays;
 
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.Callback;
 
 public class ItineraryItem {
+
+
 	private City destination;
 	private Resource[] load;
 	private boolean waitForFull = false;	
 	public BooleanProperty update = new SimpleBooleanProperty(false);
 	private BooleanProperty nextDestination = new SimpleBooleanProperty(false);
-	
+	ObjectProperty<Resource> name = new SimpleObjectProperty<Resource>();
 	
 	/**
 	 * Creates item for loading in city
@@ -23,7 +27,7 @@ public class ItineraryItem {
 	public ItineraryItem(City destination, Resource[] input) {
 		this.destination = destination;
 		this.load = input;
-	}
+	}	
 	
 	/**
 	 * Creates item for loading and unloading

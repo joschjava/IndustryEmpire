@@ -15,7 +15,7 @@ public class Game {
 
     private static LongProperty tickTime = new SimpleLongProperty(0);
     private static Game game = null;
-    private Player player = new Player();
+    private Player player = Player.getInstance();
     public static int tickInterval = Const.STD_TICK_INTERVAL;
 //    public static long lastTime = 0;
     
