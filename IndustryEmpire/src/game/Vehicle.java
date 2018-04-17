@@ -283,8 +283,8 @@ public class Vehicle extends Position implements  TickListener{
 	private void refuel() {
 		if(refuelTimeline.getStatus() == Animation.Status.STOPPED) {
 	        double fuelTime = Game.getTimeForNrTicks(20);
-	        
-	        KeyValue fuel = new KeyValue(fuelProperty(), specs.getTankSize());
+	        int tankSize = specs.getTankSize();
+	        KeyValue fuel = new KeyValue(fuelProperty(), tankSize);
 	        
 	        refuelTimeline =   new Timeline(
 					new KeyFrame(Duration.millis(0)),
@@ -294,6 +294,8 @@ public class Vehicle extends Position implements  TickListener{
 				status.set(Status.DRIVING);
 			});
 	        refuelTimeline.play();
+	        double cost = tankSize * Game.getInstance().getFuelPrice();
+	        Player.getInstance().chgMoneyValueBy((int) -cost);
 		}
 	}
 	

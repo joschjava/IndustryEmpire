@@ -49,7 +49,7 @@ public class IndustryMain extends Application {
 		new Building(Buildings.BOOK_FACTORY, frankfurt);
 		new Building(Buildings.SUPER_RES_FACTORY, essen);
 		
-		Vehicle karl = new Vehicle(Vehicles.FUEL_TRUCK, essen);
+		Vehicle karl = new Vehicle(Vehicles.FUEL_CONSUMPTION_TRUCK, essen);
         Itinerary itinerary = new Itinerary();
         Resource[] input = {new Resource(Resources.WOOD,20)};
         ItineraryItem item = new ItineraryItem(essen, input);

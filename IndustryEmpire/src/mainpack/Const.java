@@ -78,5 +78,9 @@ public class Const {
 	/** Maximum basic salary of a driver (might be higher or lower due to driver qualifications) */
 	public static final int MAX_DRIVER_SALARY = 15000;
 	
+	/*
+	 * GAMEs
+	 */
 	
+	public static final int MAX_FUEL_PRICE = 50;
 }
