@@ -12,7 +12,7 @@ public class Const {
 	 * GENERAL
 	 */
 	
-	public static final int MAPSIZE_X = 500;
+	public static final int MAPSIZE_X = 1000;
 	public static final int MAPSIZE_Y = 500;
 	
 	/** Standard time between two ticks */

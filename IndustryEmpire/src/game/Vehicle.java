@@ -146,7 +146,6 @@ public class Vehicle extends Position implements  TickListener{
 	
 	private void drive() {
 		if(driveTimeline.getStatus() == Animation.Status.STOPPED) {
-			System.out.println("Timeline init");
 			distToLocation = Functions.getDistance(this,curCity);
 	        double xDestination = curCity.getX();
 	        double yDestination = curCity.getY();

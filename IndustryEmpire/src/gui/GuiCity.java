@@ -29,9 +29,9 @@ public class GuiCity {
 		pane.setPickOnBounds(false);
 		File file = new File("graphics/city.png");
 
-
+		int size = 50;
 //		pane.setStyle("-fx-border-color: black");
-		Image image = new Image(file.toURI().toString(),30,30, true, true);
+		Image image = new Image(file.toURI().toString(),size,size, true, true);
 		iv = new ImageView();
 		iv.setImage(image);
 		pane.relocate(city.getX(), city.getY());
@@ -59,7 +59,7 @@ public class GuiCity {
 //		circle = new Circle(10, Color.BLUE);
 //		circle.relocate(city.getX(), city.getY());
 		text = new Text(city.getName());
-		text.relocate(0, 30);
+		text.relocate(0, size*1.1);
 		pane.getChildren().addAll(iv, text);
 		pane.setCursor(Cursor.CROSSHAIR);
 	}

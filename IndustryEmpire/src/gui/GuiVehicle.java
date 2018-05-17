@@ -44,8 +44,9 @@ public class GuiVehicle {
 		ivFuel.setFitHeight(15);
 		ivFuel.relocate(0, -20);
 		if(image == null || image_m == null) {
-			image = new Image(file.toURI().toString(),20,20, true, true);
-			image_m = new Image(file_m.toURI().toString(),20,20, true, true);
+			int size = 40;
+			image = new Image(file.toURI().toString(),size,size, true, true);
+			image_m = new Image(file_m.toURI().toString(),size,size, true, true);
 		}
 		iv = new ImageView();
 		iv.setImage(image);

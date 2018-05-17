@@ -135,7 +135,7 @@ public class Game {
      */
     public double getFuelPrice() {
     	double fuelPrice = (Math.cos(getTick()/5.0)+1)*Const.MAX_FUEL_PRICE/2.0;
-    	System.out.println(fuelPrice);
+//    	System.out.println(fuelPrice);
     	return fuelPrice;
     }
     

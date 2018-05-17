@@ -38,8 +38,7 @@ public class WorldPane extends StackPane{
 	public WorldPane(){
 		super();
 		this.setMinWidth(Const.MAPSIZE_X*1.1);
-		this.setMinHeight(Const.MAPSIZE_Y*1.1);
-
+		this.setMinHeight(Const.MAPSIZE_Y*2);
 
 		dynamicPane.setPickOnBounds(false);
 		overlay.setPickOnBounds(false);

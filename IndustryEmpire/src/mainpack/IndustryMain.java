@@ -88,6 +88,7 @@ public class IndustryMain extends Application {
 			
 		Scene scene = new Scene(rootLayout);
 		primaryStage.setScene(scene);
+		primaryStage.setFullScreen(true);
 //		Game.getInstance().start(2000);
 		primaryStage.show();
 		Game.getInstance().start();
